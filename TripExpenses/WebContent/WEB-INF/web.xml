@@ -39,8 +39,7 @@
     <param-name>contextConfigLocation</param-name>
     <param-value>
  	 classpath:com/software/engineering/spring/tripexspenses/config/dao-context.xml
- 	 classpath:com/software/engineering/spring/tripexspenses/service-context.xml
- 	 classpath:com/software/engineering/spring/tripexspenses/config/security-context.xml
+ 	 classpath:com/software/engineering/spring/tripexspenses/config/service-context.xml
   </param-value>
   </context-param>
   

@@ -8,13 +8,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "LOCATIONS")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Locations.findAll", query = "SELECT l FROM Locations l")
-    , @NamedQuery(name = "Locations.findBylocId", query = "SELECT l FROM Locations l WHERE l.locId = :locId")
-    , @NamedQuery(name = "Locations.findBylocName", query = "SELECT l FROM Locations l WHERE l.locName = :locName")
-    , @NamedQuery(name = "Locations.findBylocCountry", query = "SELECT l FROM Locations l WHERE l.locCountry = :locCountry")
-    , @NamedQuery(name = "Locations.findBylocDailyAllowance", query = "SELECT l FROM Locations l WHERE l.locDailyAllowance = :locDailyAllowance")
-    , @NamedQuery(name = "Locations.findBylocDistance", query = "SELECT l FROM Locations l WHERE l.locDistance = :locDistance")})
+//@NamedQueries({
+//    @NamedQuery(name = "Locations.findAll", query = "SELECT l FROM Locations l")
+//    , @NamedQuery(name = "Locations.findBylocId", query = "SELECT l FROM Locations l WHERE l.locId = :locId")
+//    , @NamedQuery(name = "Locations.findBylocName", query = "SELECT l FROM Locations l WHERE l.locName = :locName")
+//    , @NamedQuery(name = "Locations.findBylocCountry", query = "SELECT l FROM Locations l WHERE l.locCountry = :locCountry")
+//    , @NamedQuery(name = "Locations.findBylocDailyAllowance", query = "SELECT l FROM Locations l WHERE l.locDailyAllowance = :locDailyAllowance")
+//    , @NamedQuery(name = "Locations.findBylocDistance", query = "SELECT l FROM Locations l WHERE l.locDistance = :locDistance")})
 public class Location implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -102,9 +102,12 @@ public class Location implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "domen.Locations[ locId=" + locId + " ]";
-    }
+	@Override
+	public String toString() {
+		return "Location [locId=" + locId + ", locName=" + locName + ", locCountry=" + locCountry
+				+ ", locDailyAllowance=" + locDailyAllowance + ", locDistance=" + locDistance + "]";
+	}
+
+   
 }
     

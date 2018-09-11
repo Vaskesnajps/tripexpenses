@@ -8,9 +8,9 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	
 
- 	<mvc:annotation-driven></mvc:annotation-driven>
+<mvc:annotation-driven></mvc:annotation-driven>
 	<context:component-scan
-		base-package="com.software.engineering.spring.tripexpenses.controllers">
+		base-package="com.software.engineering.spring.tripexspenses.controllers">
 	</context:component-scan>
 	<bean id="jspViewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -18,5 +18,6 @@
 	<property name="suffix" value=".jsp"></property>
 	</bean>
 	<mvc:resources location="/resources/" mapping="/static/**"></mvc:resources>
+	
 	
 </beans>
