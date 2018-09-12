@@ -36,7 +36,7 @@ public class Employee implements Serializable {
 	private List<Businesstrip> businesstrips;
 
 	//bi-directional many-to-one association to User
-	@OneToMany(mappedBy="employee")
+	@OneToMany(mappedBy="employeeid")
 	private List<User> users;
 
 	public Employee() {
@@ -120,19 +120,19 @@ public class Employee implements Serializable {
 		this.users = users;
 	}
 
-	public User addUser(User user) {
-		getUsers().add(user);
-		user.setEmployee(this);
-
-		return user;
-	}
-
-	public User removeUser(User user) {
-		getUsers().remove(user);
-		user.setEmployee(null);
-
-		return user;
-	}
+//	public User addUser(User user) {
+//		getUsers().add(user);
+//		user.setEmployee(this);
+//
+//		return user;
+//	}
+//
+//	public User removeUser(User user) {
+//		getUsers().remove(user);
+//		user.setEmployee(null);
+//
+//		return user;
+//	}
 
 	@Override
 	public String toString() {

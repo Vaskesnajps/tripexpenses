@@ -38,7 +38,7 @@ public class User implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name="EMPLOYEEID")
-	private Employee employee;
+	private Employee employeeid;
 	
 	public User() {
 	}
@@ -106,11 +106,11 @@ public class User implements Serializable {
 //	}
 
 	public Employee getEmployee() {
-		return this.employee;
+		return this.employeeid;
 	}
 
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
+	public void setEmployee(Employee employeeid) {
+		this.employeeid = employeeid;
 	}
 
 	@Override
