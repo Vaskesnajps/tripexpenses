@@ -6,7 +6,7 @@ import com.software.engineering.spring.tripexspenses.domen.Location;
 
 public interface LocationService {
 	public List<Location> findAll();
-	public void delete(Long locId);
+	public void delete(Long locid);
 	public Location save(Location location);
-	public Location findByID(Long locId) ;
+	public Location findByID(Long locid) ;
 }

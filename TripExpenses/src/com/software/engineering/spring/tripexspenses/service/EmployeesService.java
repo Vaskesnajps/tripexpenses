@@ -7,7 +7,7 @@ import com.software.engineering.spring.tripexspenses.domen.Employee;
 
 public interface EmployeesService {
 	public List<Employee > findAll();
-	public void delete(Long employeeId);
+	public void delete(Long employeeid);
 	public Employee save(Employee employee);
-	public Employee findByID(Long employeeId) ;
+	public Employee findByID(Long employeeid) ;
 }

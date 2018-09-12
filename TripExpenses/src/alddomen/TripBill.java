@@ -1,4 +1,4 @@
-package com.software.engineering.spring.tripexspenses.domen;
+package alddomen;
 
 
 import java.io.Serializable;

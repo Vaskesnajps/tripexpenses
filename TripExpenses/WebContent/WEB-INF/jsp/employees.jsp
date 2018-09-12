@@ -9,7 +9,7 @@
 <title>All Employees</title>
 </head>
 <body>
-<c:forEach var="employee" items="${employes}">
+<c:forEach var="employee" items="${employees}">
 		<p><c:out value="${employee}"></c:out></p>
 	</c:forEach>
 

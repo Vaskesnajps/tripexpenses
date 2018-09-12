@@ -13,12 +13,12 @@
 	<table class="formtable">
 		<tr>
 			<td class="label">Id: </td>
-			<td class="control"><input name="locId" type=text></td>
+			<td class="control"><input name="locid" type="text"></td>
 		</tr>
 		<tr>
 			<td class="label">Name: </td>
 			<td class="control">
-			<input  class="control" name="locName"  />
+			<input  class="control" name="locname"  />
 			</td>
 			
 			
@@ -26,19 +26,19 @@
 		<tr>
 			<td class="label">Country: </td>
 			<td class="control">
-			<input    name="locCountry"  />
+			<input    name="loccountry"  />
 			</td>
 		</tr>
 		<tr>
 			<td class="label">Daily allowance: </td>
 			<td class="control">
-			<input name="locDailyAllowance"  />
+			<input name="locdailyallowance"  />
 			</td>
 		</tr>
 		<tr>
 			<td class="label">Loc distance: </td>
 			<td class="control">
-			<input name="locDistance"  />
+			<input name="locdistance"  />
 			</td>
 		</tr>
 		<tr>

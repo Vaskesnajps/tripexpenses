@@ -9,7 +9,7 @@
 <body>
 <p><a href="${pageContext.request.contextPath}/locations">Show all locations</a></p>
 	<p><a href="${pageContext.request.contextPath}/addlocation">Add new location</a></p>
-	<p><a href="${pageContext.request.contextPath}/employes">Show all employes</a></p>
+	<p><a href="${pageContext.request.contextPath}/employees">Show all employees</a></p>
 	<p><a href="${pageContext.request.contextPath}/addemployee">Add new employee</a></p>
 </body>
 </html>

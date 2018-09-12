@@ -1,110 +1,115 @@
 package com.software.engineering.spring.tripexspenses.domen;
+
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.List;
+
 
 /**
- *
- * @author stefan.vasic
+ * The persistent class for the USERS database table.
+ * 
  */
 @Entity
-@Table(name = "USERS")
-//@XmlRootElement
-//@NamedQueries({
-//    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u")
-//    , @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username")
-//    , @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
-//    , @NamedQuery(name = "Users.findByEnabled", query = "SELECT u FROM Users u WHERE u.enabled = :enabled")})
+@Table(name="USERS")
+@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "USERNAME")
-    private String username;
-    @Size(max = 20)
-    @Column(name = "PASSWORD")
-    private String password;
-    @Column(name = "ENABLED")
-    private Long enabled;
-    @JoinColumn(name = "EMPLOYEES_EMPLOYEEID", referencedColumnName = "EMPLOYEEID")
-    @ManyToOne(optional = false)
-    private Employee employeesEmployeeid;
+	@Id
+	private long userid;
 
-    public User() {
-    }
+	private BigDecimal enabled;
 
-    public User(String username) {
-        this.username = username;
-    }
+	private String password;
 
-    public String getUsername() {
-        return username;
-    }
+	private String username;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	//bi-directional many-to-one association to Authority
+	@OneToMany(mappedBy="user")
+	private List<Authority> authorities;
 
-    public String getPassword() {
-        return password;
-    }
+	//bi-directional many-to-one association to Authority
+	@ManyToOne
+	@JoinColumn(name="AUTHORITIES_AUTHORITYID")
+	private Authority authority;
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	//bi-directional many-to-one association to Employee
+	@ManyToOne
+	@JoinColumn(name="EMPLOYEES_EMPLOYEEID")
+	private Employee employee;
 
-    public Long getEnabled() {
-        return enabled;
-    }
+	public User() {
+	}
 
-    public void setEnabled(Long enabled) {
-        this.enabled = enabled;
-    }
+	public long getUserid() {
+		return this.userid;
+	}
 
-    public Employee getEmployeesEmployeeid() {
-        return employeesEmployeeid;
-    }
+	public void setUserid(long userid) {
+		this.userid = userid;
+	}
 
-    public void setEmployeesEmployeeid(Employee employeesEmployeeid) {
-        this.employeesEmployeeid = employeesEmployeeid;
-    }
+	public BigDecimal getEnabled() {
+		return this.enabled;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (username != null ? username.hashCode() : 0);
-        return hash;
-    }
+	public void setEnabled(BigDecimal enabled) {
+		this.enabled = enabled;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
-            return false;
-        }
-        User other = (User) object;
-        if ((this.username == null && other.username != null) || (this.username != null && !this.username.equals(other.username))) {
-            return false;
-        }
-        return true;
-    }
+	public String getPassword() {
+		return this.password;
+	}
 
-    @Override
-    public String toString() {
-        return "domen.User[ username=" + username + " ]";
-    }
-    
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getUsername() {
+		return this.username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public List<Authority> getAuthorities() {
+		return this.authorities;
+	}
+
+	public void setAuthorities(List<Authority> authorities) {
+		this.authorities = authorities;
+	}
+
+	public Authority addAuthority(Authority authority) {
+		getAuthorities().add(authority);
+		authority.setUser(this);
+
+		return authority;
+	}
+
+	public Authority removeAuthority(Authority authority) {
+		getAuthorities().remove(authority);
+		authority.setUser(null);
+
+		return authority;
+	}
+
+	public Authority getAuthority() {
+		return this.authority;
+	}
+
+	public void setAuthority(Authority authority) {
+		this.authority = authority;
+	}
+
+	public Employee getEmployee() {
+		return this.employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
 }

@@ -1,113 +1,106 @@
 package com.software.engineering.spring.tripexspenses.domen;
+
 import java.io.Serializable;
-
 import javax.persistence.*;
-import javax.validation.constraints.*;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.math.BigDecimal;
+import java.util.List;
 
+
+/**
+ * The persistent class for the LOCATIONS database table.
+ * 
+ */
 @Entity
-@Table(name = "LOCATIONS")
-@XmlRootElement
-//@NamedQueries({
-//    @NamedQuery(name = "Locations.findAll", query = "SELECT l FROM Locations l")
-//    , @NamedQuery(name = "Locations.findBylocId", query = "SELECT l FROM Locations l WHERE l.locId = :locId")
-//    , @NamedQuery(name = "Locations.findBylocName", query = "SELECT l FROM Locations l WHERE l.locName = :locName")
-//    , @NamedQuery(name = "Locations.findBylocCountry", query = "SELECT l FROM Locations l WHERE l.locCountry = :locCountry")
-//    , @NamedQuery(name = "Locations.findBylocDailyAllowance", query = "SELECT l FROM Locations l WHERE l.locDailyAllowance = :locDailyAllowance")
-//    , @NamedQuery(name = "Locations.findBylocDistance", query = "SELECT l FROM Locations l WHERE l.locDistance = :locDistance")})
+@Table(name="LOCATIONS")
+@NamedQuery(name="Location.findAll", query="SELECT l FROM Location l")
 public class Location implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "locId")
-    private Long locId;
-    @Size(max = 40)
-    @Column(name = "locName")
-    private String locName;
-    @Size(max = 40)
-    @Column(name = "locCountry")
-    private String locCountry;
-    @Column(name = "locDailyAllowance")
-    private Long locDailyAllowance;
-    @Column(name = "locDistance")
-    private Long locDistance;
+	
+	@Id
+	private long locid;
 
-    public Location() {
-    }
+	private String loccountry;
 
-    public Location(Long locId) {
-        this.locId = locId;
-    }
+	private BigDecimal locdailyallowance;
 
-    public Long getLocId() {
-        return locId;
-    }
+	private BigDecimal locdistance;
 
-    public void setLocId(Long locId) {
-        this.locId = locId;
-    }
+	private String locname;
 
-    public String getLocName() {
-        return locName;
-    }
+	//bi-directional many-to-one association to Businesstrip
+	@OneToMany(mappedBy="location")
+	private List<Businesstrip> businesstrips;
 
-    public void setLocName(String locName) {
-        this.locName = locName;
-    }
+	public Location() {
+	}
 
-    public String getLocCountry() {
-        return locCountry;
-    }
+	public long getLocid() {
+		return this.locid;
+	}
 
-    public void setLocCountry(String locCountry) {
-        this.locCountry = locCountry;
-    }
+	public void setLocid(long locid) {
+		this.locid = locid;
+	}
 
-    public Long getLocDailyAllowance() {
-        return locDailyAllowance;
-    }
+	public String getLoccountry() {
+		return this.loccountry;
+	}
 
-    public void setLocDailyAllowance(Long locDailyAllowance) {
-        this.locDailyAllowance = locDailyAllowance;
-    }
+	public void setLoccountry(String loccountry) {
+		this.loccountry = loccountry;
+	}
 
-    public Long getLocDistance() {
-        return locDistance;
-    }
+	public BigDecimal getLocdailyallowance() {
+		return this.locdailyallowance;
+	}
 
-    public void setLocDistance(Long locDistance) {
-        this.locDistance = locDistance;
-    }
+	public void setLocdailyallowance(BigDecimal locdailyallowance) {
+		this.locdailyallowance = locdailyallowance;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (locId != null ? locId.hashCode() : 0);
-        return hash;
-    }
+	public BigDecimal getLocdistance() {
+		return this.locdistance;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Location)) {
-            return false;
-        }
-        Location other = (Location) object;
-        if ((this.locId == null && other.locId != null) || (this.locId != null && !this.locId.equals(other.locId))) {
-            return false;
-        }
-        return true;
-    }
+	public void setLocdistance(BigDecimal locdistance) {
+		this.locdistance = locdistance;
+	}
+
+	public String getLocname() {
+		return this.locname;
+	}
+
+	public void setLocname(String locname) {
+		this.locname = locname;
+	}
+
+	public List<Businesstrip> getBusinesstrips() {
+		return this.businesstrips;
+	}
+
+	public void setBusinesstrips(List<Businesstrip> businesstrips) {
+		this.businesstrips = businesstrips;
+	}
+
+	public Businesstrip addBusinesstrip(Businesstrip businesstrip) {
+		getBusinesstrips().add(businesstrip);
+		businesstrip.setLocation(this);
+
+		return businesstrip;
+	}
+
+	public Businesstrip removeBusinesstrip(Businesstrip businesstrip) {
+		getBusinesstrips().remove(businesstrip);
+		businesstrip.setLocation(null);
+
+		return businesstrip;
+	}
 
 	@Override
 	public String toString() {
-		return "Location [locId=" + locId + ", locName=" + locName + ", locCountry=" + locCountry
-				+ ", locDailyAllowance=" + locDailyAllowance + ", locDistance=" + locDistance + "]";
+		return "Location [locid=" + locid + ", loccountry=" + loccountry + ", locdailyallowance=" + locdailyallowance
+				+ ", locdistance=" + locdistance + ", locname=" + locname + "]";
 	}
 
-   
 }
-    

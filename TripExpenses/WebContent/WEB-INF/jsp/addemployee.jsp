@@ -14,7 +14,7 @@
 		<tr>
 			<td class="label"> Id: </td>
 			<td class="control">
-			<input  class="control" name="employeeId"  />
+			<input  class="control" name="employeeid" type="text"  />
 			</td>
 			
 			
@@ -22,7 +22,7 @@
 		<tr>
 			<td class="label"> Full name: </td>
 			<td class="control">
-			<input  class="control" name="fullName"  />
+			<input  class="control" name="fullname"  />
 			</td>
 			
 			
@@ -36,19 +36,19 @@
 		<tr>
 			<td class="label">Personal identificational number: </td>
 			<td class="control">
-			<input name="persIdNum"  />
+			<input name="persidnum"  />
 			</td>
 		</tr>
 		<tr>
 			<td class="label">Password number: </td>
 			<td class="control">
-			<input name="passNum"  />
+			<input name="passnum"  />
 			</td>
 		</tr>
 		<tr>
 			<td class="label">Has B licence: </td>
 			<td class="control">
-			<input name="hasLicence"  />
+			<input name="haslicence"  />
 			</td>
 		</tr>
 		<tr>

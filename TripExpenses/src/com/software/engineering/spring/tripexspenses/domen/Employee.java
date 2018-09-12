@@ -1,162 +1,143 @@
 package com.software.engineering.spring.tripexspenses.domen;
 
 import java.io.Serializable;
-import java.util.List;
-
 import javax.persistence.*;
-import javax.validation.constraints.*;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
-import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
- * @author stefan.vasic
+ * The persistent class for the EMPLOYEES database table.
+ * 
  */
 @Entity
-@Table(name = "EMPLOYEES")
-//@XmlRootElement
-//@NamedQueries({
-//    @NamedQuery(name = "Employees.findAll", query = "SELECT e FROM Employees e")
-//    , @NamedQuery(name = "Employees.findByEmployeeid", query = "SELECT e FROM Employees e WHERE e.employeeid = :employeeId")
-//    , @NamedQuery(name = "Employees.findByFullname", query = "SELECT e FROM Employees e WHERE e.fullname = :fullName")
-//    , @NamedQuery(name = "Employees.findByEmail", query = "SELECT e FROM Employees e WHERE e.email = :email")
-//    , @NamedQuery(name = "Employees.findByPersidnum", query = "SELECT e FROM Employees e WHERE e.persidnum = :persIdNum")
-//    , @NamedQuery(name = "Employees.findByPassnum", query = "SELECT e FROM Employees e WHERE e.passnum = :passNum")
-//    , @NamedQuery(name = "Employees.findByHaslicence", query = "SELECT e FROM Employees e WHERE e.haslicence = :hasLicence")})
+@Table(name="EMPLOYEES")
+@NamedQuery(name="Employee.findAll", query="SELECT e FROM Employee e")
 public class Employee implements Serializable {
+	
 
-    private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "EMPLOYEEID")
-    private Long employeeId;
-    @Size(max = 40)
-    @Column(name = "FULLNAME")
-    private String fullName;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Size(max = 40)
-    @Column(name = "EMAIL")
-    private String email;
-    @Column(name = "PERSIDNUM")
-    private Long persIdNum;
-    @Size(max = 15)
-    @Column(name = "PASSNUM")
-    private String passNum;
-    @Column(name = "HASLICENCE")
-    private Long hasLicence;
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeesEmployeeid")
-//    private List<User> usersList;
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeesEmployeeid")
-//    private List<BusinessTrip> businesstripsList;
+	private static final long serialVersionUID = 1L;
 
-    public Employee() {
-    }
+	@Id
+	private long employeeid;
 
-    public Employee(Long employeeId) {
-        this.employeeId = employeeId;
-    }
+	private String email;
 
-    public Long getEmployeeid() {
-        return employeeId;
-    }
+	private String fullname;
 
-    public void setEmployeeid(Long employeeId) {
-        this.employeeId = employeeId;
-    }
+	private BigDecimal haslicence;
 
-    public String getFullname() {
-        return fullName;
-    }
+	private String passnum;
 
-    public void setFullname(String fullName) {
-        this.fullName = fullName;
-    }
+	private BigDecimal persidnum;
 
-    public String getEmail() {
-        return email;
-    }
+	//bi-directional many-to-one association to Businesstrip
+	@OneToMany(mappedBy="employee")
+	private List<Businesstrip> businesstrips;
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	//bi-directional many-to-one association to User
+	@OneToMany(mappedBy="employee")
+	private List<User> users;
 
-    public Long getPersidnum() {
-        return persIdNum;
-    }
+	public Employee() {
+	}
 
-    public void setPersidnum(Long persIdNum) {
-        this.persIdNum = persIdNum;
-    }
+	public long getEmployeeid() {
+		return this.employeeid;
+	}
 
-    public String getPassnum() {
-        return passNum;
-    }
+	public void setEmployeeid(long employeeid) {
+		this.employeeid = employeeid;
+	}
 
-    public void setPassnum(String passNum) {
-        this.passNum = passNum;
-    }
+	public String getEmail() {
+		return this.email;
+	}
 
-    public Long getHaslicence() {
-        return hasLicence;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setHaslicence(Long hasLicence) {
-        this.hasLicence = hasLicence;
-    }
+	public String getFullname() {
+		return this.fullname;
+	}
 
-//    @XmlTransient
-//    public List<User> getUsersList() {
-//        return usersList;
-//    }
-//
-//    public void setUsersList(List<User> usersList) {
-//        this.usersList = usersList;
-//    }
-//
-//    @XmlTransient
-//    public List<BusinessTrip> getBusinesstripsList() {
-//        return businesstripsList;
-//    }
-//
-//    public void setBusinesstripsList(List<BusinessTrip> businesstripsList) {
-//        this.businesstripsList = businesstripsList;
-//    }
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (employeeId != null ? employeeId.hashCode() : 0);
-        return hash;
-    }
+	public BigDecimal getHaslicence() {
+		return this.haslicence;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Employee)) {
-            return false;
-        }
-        Employee other = (Employee) object;
-        if ((this.employeeId == null && other.employeeId != null) || (this.employeeId != null && !this.employeeId.equals(other.employeeId))) {
-            return false;
-        }
-        return true;
-    }
+	public void setHaslicence(BigDecimal haslicence) {
+		this.haslicence = haslicence;
+	}
 
-    @Override
-    public String toString() {
-        return "domen.Employee[ employeeId=" + employeeId + " ]";
-    }
-    
+	public String getPassnum() {
+		return this.passnum;
+	}
+
+	public void setPassnum(String passnum) {
+		this.passnum = passnum;
+	}
+
+	public BigDecimal getPersidnum() {
+		return this.persidnum;
+	}
+
+	public void setPersidnum(BigDecimal persidnum) {
+		this.persidnum = persidnum;
+	}
+
+	public List<Businesstrip> getBusinesstrips() {
+		return this.businesstrips;
+	}
+
+	public void setBusinesstrips(List<Businesstrip> businesstrips) {
+		this.businesstrips = businesstrips;
+	}
+
+	public Businesstrip addBusinesstrip(Businesstrip businesstrip) {
+		getBusinesstrips().add(businesstrip);
+		businesstrip.setEmployee(this);
+
+		return businesstrip;
+	}
+
+	public Businesstrip removeBusinesstrip(Businesstrip businesstrip) {
+		getBusinesstrips().remove(businesstrip);
+		businesstrip.setEmployee(null);
+
+		return businesstrip;
+	}
+
+	public List<User> getUsers() {
+		return this.users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
+	public User addUser(User user) {
+		getUsers().add(user);
+		user.setEmployee(this);
+
+		return user;
+	}
+
+	public User removeUser(User user) {
+		getUsers().remove(user);
+		user.setEmployee(null);
+
+		return user;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [employeeid=" + employeeid + ", email=" + email + ", fullname=" + fullname + ", haslicence="
+				+ haslicence + ", passnum=" + passnum + ", persidnum=" + persidnum + "]";
+	}
+
 }

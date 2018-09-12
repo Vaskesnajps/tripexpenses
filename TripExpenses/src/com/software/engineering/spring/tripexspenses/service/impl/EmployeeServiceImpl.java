@@ -15,26 +15,26 @@ public class EmployeeServiceImpl implements EmployeesService{
 	EmployeeDAO employeeDAO;
 	@Override
 	public List<Employee> findAll() {
-		// TODO Auto-generated method stub
+		
 		return employeeDAO.findAll();
 	}
 
 	@Override
-	public void delete(Long employeeId) {
-		employeeDAO.delete(employeeId);
+	public void delete(Long employeeid) {
+		employeeDAO.delete(employeeid);
 		
 	}
 
 	@Override
 	public Employee save(Employee employee) {
-		// TODO Auto-generated method stub
+		
 		return employeeDAO.save(employee);
 	}
 
 	@Override
-	public Employee findByID(Long employeeId) {
-		// TODO Auto-generated method stub
-		return employeeDAO.findOne(employeeId);
+	public Employee findByID(Long employeeid) {
+		
+		return employeeDAO.findOne(employeeid);
 	}
 
 }
