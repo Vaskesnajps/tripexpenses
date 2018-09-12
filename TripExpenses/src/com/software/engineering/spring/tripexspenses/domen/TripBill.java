@@ -2,7 +2,6 @@ package com.software.engineering.spring.tripexspenses.domen;
 
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.Basic;
@@ -26,12 +25,12 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "TRIPBILLS")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Tripbills.findAll", query = "SELECT t FROM Tripbills t")
-    , @NamedQuery(name = "Tripbills.findByTripbillid", query = "SELECT t FROM Tripbills t WHERE t.tripbillid = :tripbillid")
-    , @NamedQuery(name = "Tripbills.findByTotalamount", query = "SELECT t FROM Tripbills t WHERE t.totalamount = :totalamount")})
-public class Tripbills implements Serializable {
+//@XmlRootElement
+//@NamedQueries({
+//    @NamedQuery(name = "Tripbills.findAll", query = "SELECT t FROM Tripbills t")
+//    , @NamedQuery(name = "Tripbills.findByTripbillid", query = "SELECT t FROM Tripbills t WHERE t.tripbillid = :tripbillid")
+//    , @NamedQuery(name = "Tripbills.findByTotalamount", query = "SELECT t FROM Tripbills t WHERE t.totalamount = :totalamount")})
+public class TripBill implements Serializable {
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -39,27 +38,27 @@ public class Tripbills implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "TRIPBILLID")
-    private BigDecimal tripbillid;
+    private Long tripbillid;
     @Column(name = "TOTALAMOUNT")
     private BigInteger totalamount;
     @JoinColumn(name = "BUSINESSTRIPS_BUSTRIPID", referencedColumnName = "BUSTRIPID")
     @ManyToOne(optional = false)
-    private Businesstrips businesstripsBustripid;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tripbillsTripbillid")
-    private List<Bills> billsList;
+    private BusinessTrip businesstripsBustripid;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tripBillsTripbillId")
+    private List<Bill> billsList;
 
-    public Tripbills() {
+    public TripBill() {
     }
 
-    public Tripbills(BigDecimal tripbillid) {
+    public TripBill(Long tripbillid) {
         this.tripbillid = tripbillid;
     }
 
-    public BigDecimal getTripbillid() {
+    public Long getTripbillid() {
         return tripbillid;
     }
 
-    public void setTripbillid(BigDecimal tripbillid) {
+    public void setTripbillid(Long tripbillid) {
         this.tripbillid = tripbillid;
     }
 
@@ -71,20 +70,20 @@ public class Tripbills implements Serializable {
         this.totalamount = totalamount;
     }
 
-    public Businesstrips getBusinesstripsBustripid() {
+    public BusinessTrip getBusinesstripsBustripid() {
         return businesstripsBustripid;
     }
 
-    public void setBusinesstripsBustripid(Businesstrips businesstripsBustripid) {
+    public void setBusinesstripsBustripid(BusinessTrip businesstripsBustripid) {
         this.businesstripsBustripid = businesstripsBustripid;
     }
 
     @XmlTransient
-    public List<Bills> getBillsList() {
+    public List<Bill> getBillsList() {
         return billsList;
     }
 
-    public void setBillsList(List<Bills> billsList) {
+    public void setBillsList(List<Bill> billsList) {
         this.billsList = billsList;
     }
 
@@ -98,10 +97,10 @@ public class Tripbills implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tripbills)) {
+        if (!(object instanceof TripBill)) {
             return false;
         }
-        Tripbills other = (Tripbills) object;
+        TripBill other = (TripBill) object;
         if ((this.tripbillid == null && other.tripbillid != null) || (this.tripbillid != null && !this.tripbillid.equals(other.tripbillid))) {
             return false;
         }

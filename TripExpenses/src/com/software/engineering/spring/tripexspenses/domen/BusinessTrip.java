@@ -1,8 +1,5 @@
 package com.software.engineering.spring.tripexspenses.domen;
-
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -28,15 +25,15 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "BUSINESSTRIPS")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Businesstrips.findAll", query = "SELECT b FROM Businesstrips b")
-    , @NamedQuery(name = "Businesstrips.findByBustripid", query = "SELECT b FROM Businesstrips b WHERE b.bustripid = :bustripid")
-    , @NamedQuery(name = "Businesstrips.findByFromdate", query = "SELECT b FROM Businesstrips b WHERE b.fromdate = :fromdate")
-    , @NamedQuery(name = "Businesstrips.findByTodate", query = "SELECT b FROM Businesstrips b WHERE b.todate = :todate")
-    , @NamedQuery(name = "Businesstrips.findByDayscount", query = "SELECT b FROM Businesstrips b WHERE b.dayscount = :dayscount")
-    , @NamedQuery(name = "Businesstrips.findByTriptotallow", query = "SELECT b FROM Businesstrips b WHERE b.triptotallow = :triptotallow")})
-public class Businesstrips implements Serializable {
+//@XmlRootElement
+//@NamedQueries({
+//    @NamedQuery(name = "Businesstrips.findAll", query = "SELECT b FROM Businesstrips b")
+//    , @NamedQuery(name = "Businesstrips.findByBustripid", query = "SELECT b FROM Businesstrips b WHERE b.bustripid = :bustripid")
+//    , @NamedQuery(name = "Businesstrips.findByFromdate", query = "SELECT b FROM Businesstrips b WHERE b.fromdate = :fromdate")
+//    , @NamedQuery(name = "Businesstrips.findByTodate", query = "SELECT b FROM Businesstrips b WHERE b.todate = :todate")
+//    , @NamedQuery(name = "Businesstrips.findByDayscount", query = "SELECT b FROM Businesstrips b WHERE b.dayscount = :dayscount")
+//    , @NamedQuery(name = "Businesstrips.findByTriptotallow", query = "SELECT b FROM Businesstrips b WHERE b.triptotallow = :triptotallow")})
+public class BusinessTrip implements Serializable {
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -44,7 +41,7 @@ public class Businesstrips implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "BUSTRIPID")
-    private BigDecimal bustripid;
+    private Long bustripid;
     @Column(name = "FROMDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fromdate;
@@ -52,30 +49,30 @@ public class Businesstrips implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date todate;
     @Column(name = "DAYSCOUNT")
-    private BigInteger dayscount;
+    private Long dayscount;
     @Column(name = "TRIPTOTALLOW")
-    private BigInteger triptotallow;
+    private Long triptotallow;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "businesstripsBustripid")
-    private List<Tripbills> tripbillsList;
+    private List<TripBill> tripbillList;
     @JoinColumn(name = "EMPLOYEES_EMPLOYEEID", referencedColumnName = "EMPLOYEEID")
     @ManyToOne(optional = false)
-    private Employees employeesEmployeeid;
+    private Employee employeesEmployeeid;
     @JoinColumn(name = "LOCATIONS_LOCID", referencedColumnName = "LOCID")
     @ManyToOne(optional = false)
-    private Locations locationsLocid;
+    private Location locationsLocid;
 
-    public Businesstrips() {
+    public BusinessTrip() {
     }
 
-    public Businesstrips(BigDecimal bustripid) {
+    public BusinessTrip(Long bustripid) {
         this.bustripid = bustripid;
     }
 
-    public BigDecimal getBustripid() {
+    public Long getBustripid() {
         return bustripid;
     }
 
-    public void setBustripid(BigDecimal bustripid) {
+    public void setBustripid(Long bustripid) {
         this.bustripid = bustripid;
     }
 
@@ -95,44 +92,44 @@ public class Businesstrips implements Serializable {
         this.todate = todate;
     }
 
-    public BigInteger getDayscount() {
+    public Long getDayscount() {
         return dayscount;
     }
 
-    public void setDayscount(BigInteger dayscount) {
+    public void setDayscount(Long dayscount) {
         this.dayscount = dayscount;
     }
 
-    public BigInteger getTriptotallow() {
+    public Long getTriptotallow() {
         return triptotallow;
     }
 
-    public void setTriptotallow(BigInteger triptotallow) {
+    public void setTriptotallow(Long triptotallow) {
         this.triptotallow = triptotallow;
     }
 
     @XmlTransient
-    public List<Tripbills> getTripbillsList() {
-        return tripbillsList;
+    public List<TripBill> getTripbillList() {
+        return tripbillList;
     }
 
-    public void setTripbillsList(List<Tripbills> tripbillsList) {
-        this.tripbillsList = tripbillsList;
+    public void setTripbillList(List<TripBill> tripbillsList) {
+        this.tripbillList = tripbillsList;
     }
 
-    public Employees getEmployeesEmployeeid() {
+    public Employee getEmployeesEmployeeid() {
         return employeesEmployeeid;
     }
 
-    public void setEmployeesEmployeeid(Employees employeesEmployeeid) {
+    public void setEmployeesEmployeeid(Employee employeesEmployeeid) {
         this.employeesEmployeeid = employeesEmployeeid;
     }
 
-    public Locations getLocationsLocid() {
+    public Location getLocationsLocid() {
         return locationsLocid;
     }
 
-    public void setLocationsLocid(Locations locationsLocid) {
+    public void setLocationsLocid(Location locationsLocid) {
         this.locationsLocid = locationsLocid;
     }
 
@@ -146,10 +143,10 @@ public class Businesstrips implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Businesstrips)) {
+        if (!(object instanceof BusinessTrip)) {
             return false;
         }
-        Businesstrips other = (Businesstrips) object;
+        BusinessTrip other = (BusinessTrip) object;
         if ((this.bustripid == null && other.bustripid != null) || (this.bustripid != null && !this.bustripid.equals(other.bustripid))) {
             return false;
         }
@@ -158,7 +155,7 @@ public class Businesstrips implements Serializable {
 
     @Override
     public String toString() {
-        return "domen.Businesstrips[ bustripid=" + bustripid + " ]";
+        return "domen.Businesstrip[ bustripid=" + bustripid + " ]";
     }
     
 }

@@ -1,6 +1,5 @@
 package com.software.engineering.spring.tripexspenses.domen;
 import java.io.Serializable;
-import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,13 +19,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "USERS")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u")
-    , @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username")
-    , @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
-    , @NamedQuery(name = "Users.findByEnabled", query = "SELECT u FROM Users u WHERE u.enabled = :enabled")})
-public class Users implements Serializable {
+//@XmlRootElement
+//@NamedQueries({
+//    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u")
+//    , @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username")
+//    , @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
+//    , @NamedQuery(name = "Users.findByEnabled", query = "SELECT u FROM Users u WHERE u.enabled = :enabled")})
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,15 +38,15 @@ public class Users implements Serializable {
     @Column(name = "PASSWORD")
     private String password;
     @Column(name = "ENABLED")
-    private BigInteger enabled;
+    private Long enabled;
     @JoinColumn(name = "EMPLOYEES_EMPLOYEEID", referencedColumnName = "EMPLOYEEID")
     @ManyToOne(optional = false)
-    private Employees employeesEmployeeid;
+    private Employee employeesEmployeeid;
 
-    public Users() {
+    public User() {
     }
 
-    public Users(String username) {
+    public User(String username) {
         this.username = username;
     }
 
@@ -67,19 +66,19 @@ public class Users implements Serializable {
         this.password = password;
     }
 
-    public BigInteger getEnabled() {
+    public Long getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(BigInteger enabled) {
+    public void setEnabled(Long enabled) {
         this.enabled = enabled;
     }
 
-    public Employees getEmployeesEmployeeid() {
+    public Employee getEmployeesEmployeeid() {
         return employeesEmployeeid;
     }
 
-    public void setEmployeesEmployeeid(Employees employeesEmployeeid) {
+    public void setEmployeesEmployeeid(Employee employeesEmployeeid) {
         this.employeesEmployeeid = employeesEmployeeid;
     }
 
@@ -93,10 +92,10 @@ public class Users implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Users)) {
+        if (!(object instanceof User)) {
             return false;
         }
-        Users other = (Users) object;
+        User other = (User) object;
         if ((this.username == null && other.username != null) || (this.username != null && !this.username.equals(other.username))) {
             return false;
         }
@@ -105,7 +104,7 @@ public class Users implements Serializable {
 
     @Override
     public String toString() {
-        return "domen.Users[ username=" + username + " ]";
+        return "domen.User[ username=" + username + " ]";
     }
     
 }
