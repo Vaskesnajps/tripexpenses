@@ -1,6 +1,5 @@
 package com.software.engineering.spring.tripexspenses.domen;
 import java.io.Serializable;
-import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,7 +38,7 @@ public class User implements Serializable {
     @Column(name = "PASSWORD")
     private String password;
     @Column(name = "ENABLED")
-    private BigInteger enabled;
+    private Long enabled;
     @JoinColumn(name = "EMPLOYEES_EMPLOYEEID", referencedColumnName = "EMPLOYEEID")
     @ManyToOne(optional = false)
     private Employee employeesEmployeeid;
@@ -67,11 +66,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public BigInteger getEnabled() {
+    public Long getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(BigInteger enabled) {
+    public void setEnabled(Long enabled) {
         this.enabled = enabled;
     }
 
@@ -105,7 +104,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "domen.Users[ username=" + username + " ]";
+        return "domen.User[ username=" + username + " ]";
     }
     
 }

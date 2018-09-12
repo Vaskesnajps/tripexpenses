@@ -20,11 +20,27 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "TRIPBILLS")
+<<<<<<< HEAD
 //@XmlRootElement
 //@NamedQueries({
 //    @NamedQuery(name = "Tripbills.findAll", query = "SELECT t FROM Tripbills t")
 //    , @NamedQuery(name = "Tripbills.findByTripbillid", query = "SELECT t FROM Tripbills t WHERE t.tripbillid = :tripbillid")
 //    , @NamedQuery(name = "Tripbills.findByTotalamount", query = "SELECT t FROM Tripbills t WHERE t.totalamount = :totalamount")})
+=======
+
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Tripbills.findAll", query = "SELECT t FROM Tripbills t")
+    , @NamedQuery(name = "Tripbills.findByTripbillid", query = "SELECT t FROM Tripbills t WHERE t.tripbillid = :tripbillid")
+    , @NamedQuery(name = "Tripbills.findByTotalamount", query = "SELECT t FROM Tripbills t WHERE t.totalamount = :totalamount")})
+
+//@XmlRootElement
+//@NamedQueries({
+//    @NamedQuery(name = "Tripbills.findAll", query = "SELECT t FROM Tripbills t")
+//    , @NamedQuery(name = "Tripbills.findByTripbillid", query = "SELECT t FROM Tripbills t WHERE t.tripbillid = :tripbillid")
+//    , @NamedQuery(name = "Tripbills.findByTotalamount", query = "SELECT t FROM Tripbills t WHERE t.totalamount = :totalamount")})
+
+>>>>>>> branch 'master' of https://github.com/bogaroskidejan/tripexpenses.git
 public class TripBill implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,9 +56,19 @@ public class TripBill implements Serializable {
     
     @JoinColumn(name = "BUSINESSTRIPS_BUSTRIPID", referencedColumnName = "BUSTRIPID")
     @ManyToOne(optional = false)
+<<<<<<< HEAD
     private BusinessTrip businesstripsBustripid;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tripBillsTripbillId")
+=======
+
+    private Businesstrips businesstripsBustripid;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tripbillsTripbillid")
+=======
+    private BusinessTrip businesstripsBustripid;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tripBillsTripbillId")
+
+>>>>>>> branch 'master' of https://github.com/bogaroskidejan/tripexpenses.git
     private List<Bill> billsList;
 
     public TripBill() {

@@ -6,6 +6,9 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import javax.persistence.FetchType;
+
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,6 +26,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "BILLS")
+<<<<<<< HEAD
 //@XmlRootElement
 //@NamedQueries({
 //    @NamedQuery(name = "Bills.findAll", query = "SELECT b FROM Bills b")
@@ -30,6 +34,24 @@ import org.springframework.format.annotation.DateTimeFormat;
 //    , @NamedQuery(name = "Bills.findByBillitem", query = "SELECT b FROM Bills b WHERE b.billitem = :billitem")
 //    , @NamedQuery(name = "Bills.findByPrice", query = "SELECT b FROM Bills b WHERE b.price = :price")
 //    , @NamedQuery(name = "Bills.findByBilldate", query = "SELECT b FROM Bills b WHERE b.billdate = :billdate")})
+=======
+
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Bills.findAll", query = "SELECT b FROM Bills b")
+    , @NamedQuery(name = "Bills.findByBillid", query = "SELECT b FROM Bills b WHERE b.billid = :billid")
+    , @NamedQuery(name = "Bills.findByBillitem", query = "SELECT b FROM Bills b WHERE b.billitem = :billitem")
+    , @NamedQuery(name = "Bills.findByPrice", query = "SELECT b FROM Bills b WHERE b.price = :price")
+
+//@XmlRootElement
+//@NamedQueries({
+//    @NamedQuery(name = "Bills.findAll", query = "SELECT b FROM Bills b")
+//    , @NamedQuery(name = "Bills.findByBillid", query = "SELECT b FROM Bills b WHERE b.billid = :billid")
+//    , @NamedQuery(name = "Bills.findByBillitem", query = "SELECT b FROM Bills b WHERE b.billitem = :billitem")
+//    , @NamedQuery(name = "Bills.findByPrice", query = "SELECT b FROM Bills b WHERE b.price = :price")
+//    , @NamedQuery(name = "Bills.findByBilldate", query = "SELECT b FROM Bills b WHERE b.billdate = :billdate")})
+
+>>>>>>> branch 'master' of https://github.com/bogaroskidejan/tripexpenses.git
 public class Bill implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,9 +73,18 @@ public class Bill implements Serializable {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date billDate;
+<<<<<<< HEAD
     
     @JoinColumn(name = "TRIPBILLS_TRIPbillId", referencedColumnName = "tripbillid")
+=======
+
+    @JoinColumn(name = "TRIPBILLS_TRIPbillId", referencedColumnName = "TRIPbillId")
+>>>>>>> branch 'master' of https://github.com/bogaroskidejan/tripexpenses.git
     @ManyToOne(optional = false)
+
+//    @JoinColumn(name = "TRIPBILLS_TRIPBILLID", referencedColumnName = "TRIPBILLID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+
     private TripBill tripBillsTripbillId;
 
     public Bill() {
@@ -123,6 +154,7 @@ public class Bill implements Serializable {
         return true;
     }
 
+<<<<<<< HEAD
 	@Override
 	public String toString() {
 		return "Bill [billId=" + billId + ", billItem=" + billItem + ", price=" + price + ", billDate=" + billDate
@@ -130,3 +162,11 @@ public class Bill implements Serializable {
 	}
 
 }
+=======
+    @Override
+    public String toString() {
+        return "domen.Bill[ billId=" + billId + " ]";
+    }
+    
+}
+>>>>>>> branch 'master' of https://github.com/bogaroskidejan/tripexpenses.git
