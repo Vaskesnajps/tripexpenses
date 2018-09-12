@@ -6,6 +6,9 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import javax.persistence.FetchType;
+
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,13 +24,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "BILLS")
+
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Bills.findAll", query = "SELECT b FROM Bills b")
     , @NamedQuery(name = "Bills.findByBillid", query = "SELECT b FROM Bills b WHERE b.billid = :billid")
     , @NamedQuery(name = "Bills.findByBillitem", query = "SELECT b FROM Bills b WHERE b.billitem = :billitem")
     , @NamedQuery(name = "Bills.findByPrice", query = "SELECT b FROM Bills b WHERE b.price = :price")
-    , @NamedQuery(name = "Bills.findByBilldate", query = "SELECT b FROM Bills b WHERE b.billdate = :billdate")})
+
+//@XmlRootElement
+//@NamedQueries({
+//    @NamedQuery(name = "Bills.findAll", query = "SELECT b FROM Bills b")
+//    , @NamedQuery(name = "Bills.findByBillid", query = "SELECT b FROM Bills b WHERE b.billid = :billid")
+//    , @NamedQuery(name = "Bills.findByBillitem", query = "SELECT b FROM Bills b WHERE b.billitem = :billitem")
+//    , @NamedQuery(name = "Bills.findByPrice", query = "SELECT b FROM Bills b WHERE b.price = :price")
+//    , @NamedQuery(name = "Bills.findByBilldate", query = "SELECT b FROM Bills b WHERE b.billdate = :billdate")})
+
 public class Bill implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,8 +57,13 @@ public class Bill implements Serializable {
     @Column(name = "billDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date billDate;
+
     @JoinColumn(name = "TRIPBILLS_TRIPbillId", referencedColumnName = "TRIPbillId")
     @ManyToOne(optional = false)
+
+//    @JoinColumn(name = "TRIPBILLS_TRIPBILLID", referencedColumnName = "TRIPBILLID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+
     private TripBill tripBillsTripbillId;
 
     public Bill() {
