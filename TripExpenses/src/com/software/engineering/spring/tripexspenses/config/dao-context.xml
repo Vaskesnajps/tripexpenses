@@ -30,7 +30,7 @@
     <property name="jpaProperties">
       <props>
         <prop key="hibernate.dialect">org.hibernate.dialect.Oracle12cDialect</prop>
-        
+        <prop key="hibernate.ejb.naming_strategy" >org.hibernate.cfg.ImprovedNamingStrategy</prop>
         <prop key="hibernate.show_sql">true</prop>
       </props>
     </property>
@@ -40,6 +40,7 @@
     <property name="sharedCacheMode" value="ENABLE_SELECTIVE"/>
     <!-- Set validation mode -->
     <property name="validationMode" value="NONE"/>
+   
   </bean>
   <bean id="transactionManager" 
     class="org.springframework.orm.jpa.JpaTransactionManager">

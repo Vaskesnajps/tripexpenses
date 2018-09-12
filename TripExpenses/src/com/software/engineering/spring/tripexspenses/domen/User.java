@@ -26,19 +26,20 @@ public class User implements Serializable {
 	private String username;
 
 	//bi-directional many-to-one association to Authority
-	@OneToMany(mappedBy="user")
-	private List<Authority> authorities;
+//	@OneToMany(mappedBy="user")
+//	private List<Authority> authorities;
 
 	//bi-directional many-to-one association to Authority
-	@ManyToOne
-	@JoinColumn(name="AUTHORITIES_AUTHORITYID")
-	private Authority authority;
+//	@ManyToOne
+//	
+//	private Authority authority;
 
-	//bi-directional many-to-one association to Employee
+
+
 	@ManyToOne
-	@JoinColumn(name="EMPLOYEES_EMPLOYEEID")
+	@JoinColumn(name="EMPLOYEEID")
 	private Employee employee;
-
+	
 	public User() {
 	}
 
@@ -74,35 +75,35 @@ public class User implements Serializable {
 		this.username = username;
 	}
 
-	public List<Authority> getAuthorities() {
-		return this.authorities;
-	}
+//	public List<Authority> getAuthorities() {
+//		return this.authorities;
+//	}
+//
+//	public void setAuthorities(List<Authority> authorities) {
+//		this.authorities = authorities;
+//	}
 
-	public void setAuthorities(List<Authority> authorities) {
-		this.authorities = authorities;
-	}
+//	public Authority addAuthority(Authority authority) {
+//		getAuthorities().add(authority);
+//		authority.setUser(this);
+//
+//		return authority;
+//	}
+//
+//	public Authority removeAuthority(Authority authority) {
+//		getAuthorities().remove(authority);
+//		authority.setUser(null);
+//
+//		return authority;
+//	}
 
-	public Authority addAuthority(Authority authority) {
-		getAuthorities().add(authority);
-		authority.setUser(this);
-
-		return authority;
-	}
-
-	public Authority removeAuthority(Authority authority) {
-		getAuthorities().remove(authority);
-		authority.setUser(null);
-
-		return authority;
-	}
-
-	public Authority getAuthority() {
-		return this.authority;
-	}
-
-	public void setAuthority(Authority authority) {
-		this.authority = authority;
-	}
+//	public Authority getAuthority() {
+//		return this.authority;
+//	}
+//
+//	public void setAuthority(Authority authority) {
+//		this.authority = authority;
+//	}
 
 	public Employee getEmployee() {
 		return this.employee;
@@ -110,6 +111,11 @@ public class User implements Serializable {
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userid=" + userid + ", password=" + password + ", username=" + username + "]";
 	}
 
 }

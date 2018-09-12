@@ -22,12 +22,12 @@ public class Authority implements Serializable {
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="USERS_USERID")
+	@JoinColumn(name="USERID")
 	private User user;
 
 	//bi-directional many-to-one association to User
-	@OneToMany(mappedBy="authority")
-	private List<User> users;
+//	@OneToMany(mappedBy="authority")
+//	private List<User> users;
 
 	public Authority() {
 	}
@@ -56,26 +56,26 @@ public class Authority implements Serializable {
 		this.user = user;
 	}
 
-	public List<User> getUsers() {
-		return this.users;
-	}
+//	public List<User> getUsers() {
+//		return this.users;
+//	}
+//
+//	public void setUsers(List<User> users) {
+//		this.users = users;
+//	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-
-	public User addUser(User user) {
-		getUsers().add(user);
-		user.setAuthority(this);
-
-		return user;
-	}
-
-	public User removeUser(User user) {
-		getUsers().remove(user);
-		user.setAuthority(null);
-
-		return user;
-	}
+//	public User addUser(User user) {
+//		getUsers().add(user);
+//		user.setAuthority(this);
+//
+//		return user;
+//	}
+//
+//	public User removeUser(User user) {
+//		getUsers().remove(user);
+//		user.setAuthority(null);
+//
+//		return user;
+//	}
 
 }

@@ -11,5 +11,8 @@
 	<p><a href="${pageContext.request.contextPath}/addlocation">Add new location</a></p>
 	<p><a href="${pageContext.request.contextPath}/employees">Show all employees</a></p>
 	<p><a href="${pageContext.request.contextPath}/addemployee">Add new employee</a></p>
+	<p><a href="${pageContext.request.contextPath}/users">Show all users</a></p>
+	<p><a href="${pageContext.request.contextPath}/adduser">Add new user</a></p>
+	
 </body>
 </html>

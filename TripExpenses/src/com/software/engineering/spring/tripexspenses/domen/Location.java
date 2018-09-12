@@ -18,6 +18,7 @@ public class Location implements Serializable {
 
 	
 	@Id
+	
 	private long locid;
 
 	private String loccountry;
