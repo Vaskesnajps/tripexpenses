@@ -28,15 +28,15 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "BUSINESSTRIPS")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Businesstrips.findAll", query = "SELECT b FROM Businesstrips b")
-    , @NamedQuery(name = "Businesstrips.findByBustripid", query = "SELECT b FROM Businesstrips b WHERE b.bustripid = :bustripid")
-    , @NamedQuery(name = "Businesstrips.findByFromdate", query = "SELECT b FROM Businesstrips b WHERE b.fromdate = :fromdate")
-    , @NamedQuery(name = "Businesstrips.findByTodate", query = "SELECT b FROM Businesstrips b WHERE b.todate = :todate")
-    , @NamedQuery(name = "Businesstrips.findByDayscount", query = "SELECT b FROM Businesstrips b WHERE b.dayscount = :dayscount")
-    , @NamedQuery(name = "Businesstrips.findByTriptotallow", query = "SELECT b FROM Businesstrips b WHERE b.triptotallow = :triptotallow")})
-public class Businesstrips implements Serializable {
+//@XmlRootElement
+//@NamedQueries({
+//    @NamedQuery(name = "Businesstrips.findAll", query = "SELECT b FROM Businesstrips b")
+//    , @NamedQuery(name = "Businesstrips.findByBustripid", query = "SELECT b FROM Businesstrips b WHERE b.bustripid = :bustripid")
+//    , @NamedQuery(name = "Businesstrips.findByFromdate", query = "SELECT b FROM Businesstrips b WHERE b.fromdate = :fromdate")
+//    , @NamedQuery(name = "Businesstrips.findByTodate", query = "SELECT b FROM Businesstrips b WHERE b.todate = :todate")
+//    , @NamedQuery(name = "Businesstrips.findByDayscount", query = "SELECT b FROM Businesstrips b WHERE b.dayscount = :dayscount")
+//    , @NamedQuery(name = "Businesstrips.findByTriptotallow", query = "SELECT b FROM Businesstrips b WHERE b.triptotallow = :triptotallow")})
+public class BusinessTrip implements Serializable {
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -56,18 +56,18 @@ public class Businesstrips implements Serializable {
     @Column(name = "TRIPTOTALLOW")
     private BigInteger triptotallow;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "businesstripsBustripid")
-    private List<Tripbills> tripbillsList;
+    private List<TripBill> tripbillsList;
     @JoinColumn(name = "EMPLOYEES_EMPLOYEEID", referencedColumnName = "EMPLOYEEID")
     @ManyToOne(optional = false)
-    private Employees employeesEmployeeid;
+    private Employee employeesEmployeeid;
     @JoinColumn(name = "LOCATIONS_LOCID", referencedColumnName = "LOCID")
     @ManyToOne(optional = false)
-    private Locations locationsLocid;
+    private Location locationsLocid;
 
-    public Businesstrips() {
+    public BusinessTrip() {
     }
 
-    public Businesstrips(BigDecimal bustripid) {
+    public BusinessTrip(BigDecimal bustripid) {
         this.bustripid = bustripid;
     }
 
@@ -112,27 +112,27 @@ public class Businesstrips implements Serializable {
     }
 
     @XmlTransient
-    public List<Tripbills> getTripbillsList() {
+    public List<TripBill> getTripbillsList() {
         return tripbillsList;
     }
 
-    public void setTripbillsList(List<Tripbills> tripbillsList) {
+    public void setTripbillsList(List<TripBill> tripbillsList) {
         this.tripbillsList = tripbillsList;
     }
 
-    public Employees getEmployeesEmployeeid() {
+    public Employee getEmployeesEmployeeid() {
         return employeesEmployeeid;
     }
 
-    public void setEmployeesEmployeeid(Employees employeesEmployeeid) {
+    public void setEmployeesEmployeeid(Employee employeesEmployeeid) {
         this.employeesEmployeeid = employeesEmployeeid;
     }
 
-    public Locations getLocationsLocid() {
+    public Location getLocationsLocid() {
         return locationsLocid;
     }
 
-    public void setLocationsLocid(Locations locationsLocid) {
+    public void setLocationsLocid(Location locationsLocid) {
         this.locationsLocid = locationsLocid;
     }
 
@@ -146,10 +146,10 @@ public class Businesstrips implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Businesstrips)) {
+        if (!(object instanceof BusinessTrip)) {
             return false;
         }
-        Businesstrips other = (Businesstrips) object;
+        BusinessTrip other = (BusinessTrip) object;
         if ((this.bustripid == null && other.bustripid != null) || (this.bustripid != null && !this.bustripid.equals(other.bustripid))) {
             return false;
         }

@@ -10,11 +10,12 @@ import com.software.engineering.spring.tripexspenses.domen.Location;
 import com.software.engineering.spring.tripexspenses.service.LocationService;
 @Service("locationsService")
 public class LocationServiceImpl implements LocationService {
-		@Autowired
-		LocationDAO locationDAO;
+	
+	@Autowired
+	private LocationDAO locationDAO;
+	
 	@Override
 	public List<Location> findAll() {
-		// TODO Auto-generated method stub
 		return locationDAO.findAll();
 	}
 

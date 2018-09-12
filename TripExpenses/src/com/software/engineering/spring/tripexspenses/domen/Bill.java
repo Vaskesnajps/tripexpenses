@@ -18,16 +18,18 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 @Entity
 @Table(name = "BILLS")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Bills.findAll", query = "SELECT b FROM Bills b")
-    , @NamedQuery(name = "Bills.findByBillid", query = "SELECT b FROM Bills b WHERE b.billid = :billid")
-    , @NamedQuery(name = "Bills.findByBillitem", query = "SELECT b FROM Bills b WHERE b.billitem = :billitem")
-    , @NamedQuery(name = "Bills.findByPrice", query = "SELECT b FROM Bills b WHERE b.price = :price")
-    , @NamedQuery(name = "Bills.findByBilldate", query = "SELECT b FROM Bills b WHERE b.billdate = :billdate")})
+//@XmlRootElement
+//@NamedQueries({
+//    @NamedQuery(name = "Bills.findAll", query = "SELECT b FROM Bills b")
+//    , @NamedQuery(name = "Bills.findByBillid", query = "SELECT b FROM Bills b WHERE b.billid = :billid")
+//    , @NamedQuery(name = "Bills.findByBillitem", query = "SELECT b FROM Bills b WHERE b.billitem = :billitem")
+//    , @NamedQuery(name = "Bills.findByPrice", query = "SELECT b FROM Bills b WHERE b.price = :price")
+//    , @NamedQuery(name = "Bills.findByBilldate", query = "SELECT b FROM Bills b WHERE b.billdate = :billdate")})
 public class Bill implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,15 +39,20 @@ public class Bill implements Serializable {
     @NotNull
     @Column(name = "billId")
     private Long billId;
+    
     @Size(max = 40)
     @Column(name = "billItem")
     private String billItem;
+    
     @Column(name = "PRICE")
     private Long price;
+    
     @Column(name = "billDate")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date billDate;
-    @JoinColumn(name = "TRIPBILLS_TRIPbillId", referencedColumnName = "TRIPbillId")
+    
+    @JoinColumn(name = "TRIPBILLS_TRIPbillId", referencedColumnName = "tripbillid")
     @ManyToOne(optional = false)
     private TripBill tripBillsTripbillId;
 
@@ -116,9 +123,10 @@ public class Bill implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "domen.Bill[ billId=" + billId + " ]";
-    }
-    
+	@Override
+	public String toString() {
+		return "Bill [billId=" + billId + ", billItem=" + billItem + ", price=" + price + ", billDate=" + billDate
+				+ "]";
+	}
+
 }

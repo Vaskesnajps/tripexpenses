@@ -32,16 +32,16 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "EMPLOYEES")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Employees.findAll", query = "SELECT e FROM Employees e")
-    , @NamedQuery(name = "Employees.findByEmployeeid", query = "SELECT e FROM Employees e WHERE e.employeeid = :employeeid")
-    , @NamedQuery(name = "Employees.findByFullname", query = "SELECT e FROM Employees e WHERE e.fullname = :fullname")
-    , @NamedQuery(name = "Employees.findByEmail", query = "SELECT e FROM Employees e WHERE e.email = :email")
-    , @NamedQuery(name = "Employees.findByPersidnum", query = "SELECT e FROM Employees e WHERE e.persidnum = :persidnum")
-    , @NamedQuery(name = "Employees.findByPassnum", query = "SELECT e FROM Employees e WHERE e.passnum = :passnum")
-    , @NamedQuery(name = "Employees.findByHaslicence", query = "SELECT e FROM Employees e WHERE e.haslicence = :haslicence")})
-public class Employees implements Serializable {
+//@XmlRootElement
+//@NamedQueries({
+//    @NamedQuery(name = "Employees.findAll", query = "SELECT e FROM Employees e")
+//    , @NamedQuery(name = "Employees.findByEmployeeid", query = "SELECT e FROM Employees e WHERE e.employeeid = :employeeid")
+//    , @NamedQuery(name = "Employees.findByFullname", query = "SELECT e FROM Employees e WHERE e.fullname = :fullname")
+//    , @NamedQuery(name = "Employees.findByEmail", query = "SELECT e FROM Employees e WHERE e.email = :email")
+//    , @NamedQuery(name = "Employees.findByPersidnum", query = "SELECT e FROM Employees e WHERE e.persidnum = :persidnum")
+//    , @NamedQuery(name = "Employees.findByPassnum", query = "SELECT e FROM Employees e WHERE e.passnum = :passnum")
+//    , @NamedQuery(name = "Employees.findByHaslicence", query = "SELECT e FROM Employees e WHERE e.haslicence = :haslicence")})
+public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -65,14 +65,14 @@ public class Employees implements Serializable {
     @Column(name = "HASLICENCE")
     private BigInteger haslicence;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeesEmployeeid")
-    private List<Users> usersList;
+    private List<User> usersList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeesEmployeeid")
-    private List<Businesstrips> businesstripsList;
+    private List<BusinessTrip> businesstripsList;
 
-    public Employees() {
+    public Employee() {
     }
 
-    public Employees(BigDecimal employeeid) {
+    public Employee(BigDecimal employeeid) {
         this.employeeid = employeeid;
     }
 
@@ -125,20 +125,20 @@ public class Employees implements Serializable {
     }
 
     @XmlTransient
-    public List<Users> getUsersList() {
+    public List<User> getUsersList() {
         return usersList;
     }
 
-    public void setUsersList(List<Users> usersList) {
+    public void setUsersList(List<User> usersList) {
         this.usersList = usersList;
     }
 
     @XmlTransient
-    public List<Businesstrips> getBusinesstripsList() {
+    public List<BusinessTrip> getBusinesstripsList() {
         return businesstripsList;
     }
 
-    public void setBusinesstripsList(List<Businesstrips> businesstripsList) {
+    public void setBusinesstripsList(List<BusinessTrip> businesstripsList) {
         this.businesstripsList = businesstripsList;
     }
 
@@ -152,10 +152,10 @@ public class Employees implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Employees)) {
+        if (!(object instanceof Employee)) {
             return false;
         }
-        Employees other = (Employees) object;
+        Employee other = (Employee) object;
         if ((this.employeeid == null && other.employeeid != null) || (this.employeeid != null && !this.employeeid.equals(other.employeeid))) {
             return false;
         }

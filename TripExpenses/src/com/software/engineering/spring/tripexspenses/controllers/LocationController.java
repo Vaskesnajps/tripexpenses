@@ -14,8 +14,9 @@ import com.software.engineering.spring.tripexspenses.service.LocationService;
 
 @Controller
 public class LocationController {
+	
 	@Autowired
-	LocationService locationService;
+	private LocationService locationService;
 	
 	@RequestMapping("/locations")
 	public String showLocations(Model model) {
@@ -23,6 +24,7 @@ public class LocationController {
 		model.addAttribute("locations",locations);
 		return "locations";
 	}
+	
 	@RequestMapping("/addlocation")
 	public String createLocation(Model model) {
 		

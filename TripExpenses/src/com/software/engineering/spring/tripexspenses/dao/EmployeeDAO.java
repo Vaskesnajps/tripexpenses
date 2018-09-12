@@ -2,8 +2,9 @@ package com.software.engineering.spring.tripexspenses.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+//import com.software.engineering.spring.tripexpenses.domen.Employee;
 
-import com.software.engineering.spring.tripexspenses.domen.Location;
+import com.software.engineering.spring.tripexspenses.domen.Employee;
 
 @Repository("employeesDAO")
 public interface EmployeeDAO extends JpaRepository<Employee, Long> {
