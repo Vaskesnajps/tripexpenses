@@ -25,11 +25,19 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "TRIPBILLS")
+
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Tripbills.findAll", query = "SELECT t FROM Tripbills t")
+    , @NamedQuery(name = "Tripbills.findByTripbillid", query = "SELECT t FROM Tripbills t WHERE t.tripbillid = :tripbillid")
+    , @NamedQuery(name = "Tripbills.findByTotalamount", query = "SELECT t FROM Tripbills t WHERE t.totalamount = :totalamount")})
+
 //@XmlRootElement
 //@NamedQueries({
 //    @NamedQuery(name = "Tripbills.findAll", query = "SELECT t FROM Tripbills t")
 //    , @NamedQuery(name = "Tripbills.findByTripbillid", query = "SELECT t FROM Tripbills t WHERE t.tripbillid = :tripbillid")
 //    , @NamedQuery(name = "Tripbills.findByTotalamount", query = "SELECT t FROM Tripbills t WHERE t.totalamount = :totalamount")})
+
 public class TripBill implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,8 +51,13 @@ public class TripBill implements Serializable {
     private BigInteger totalamount;
     @JoinColumn(name = "BUSINESSTRIPS_BUSTRIPID", referencedColumnName = "BUSTRIPID")
     @ManyToOne(optional = false)
+
+    private Businesstrips businesstripsBustripid;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tripbillsTripbillid")
+=======
     private BusinessTrip businesstripsBustripid;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tripBillsTripbillId")
+
     private List<Bill> billsList;
 
     public TripBill() {
