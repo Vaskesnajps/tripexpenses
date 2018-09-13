@@ -11,14 +11,7 @@
 <body>
 <form action="${pageContext.request.contextPath}/docreateemployee" method="post">
 	<table class="formtable">
-		<tr>
-			<td class="label"> Id: </td>
-			<td class="control">
-			<input  class="control" name="employeeid" type="text"  />
-			</td>
-			
-			
-		</tr>
+		
 		<tr>
 			<td class="label"> Full name: </td>
 			<td class="control">
@@ -58,7 +51,6 @@
 		
 	</table>
 	<!-- <input name="${_csrf.paramaterName }" type="hidden" value="${_csrf.token}}" /> -->
-	
 </form>
 </body>
 </html>

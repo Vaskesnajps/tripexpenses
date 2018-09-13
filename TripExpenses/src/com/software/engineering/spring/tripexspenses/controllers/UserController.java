@@ -11,15 +11,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.software.engineering.spring.tripexspenses.domen.Employee;
 import com.software.engineering.spring.tripexspenses.domen.User;
+import com.software.engineering.spring.tripexspenses.service.AuthorityService;
 import com.software.engineering.spring.tripexspenses.service.EmployeesService;
 import com.software.engineering.spring.tripexspenses.service.UserService;
 
 @Controller
 public class UserController {
 	@Autowired
-	UserService userService;
+	private UserService userService;
 	@Autowired
-	EmployeesService employeeService;
+	private EmployeesService employeeService;
+	@Autowired
+	private AuthorityService authoritiesService;
 	
 	@RequestMapping("/users")
 	public String showUsers(Model model) {
@@ -36,10 +39,11 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/docreateuser", method = RequestMethod.POST)
-	public String doCreatedepartment(Model model,  User user, Long employeeid, BindingResult result) {
+	public String doCreateUser(Model model,  User user, Long employeeid, BindingResult result) {
 		Employee employee=employeeService.findByID(employeeid);
 		user.setEmployee(employee);
 		userService.save(user);
+		authoritiesService.addAuthorities(user);
 		System.out.println(user);
 		System.out.println("user added successfully");
 		model.addAttribute("message","User added succesfully!!!");

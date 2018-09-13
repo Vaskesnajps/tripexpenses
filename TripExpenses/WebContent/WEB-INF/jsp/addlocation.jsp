@@ -11,10 +11,10 @@
 <body>
 <form action="${pageContext.request.contextPath}/docreatelocation" method="post">
 	<table class="formtable">
-		<tr>
-			<td class="label">Id: </td>
-			<td class="control"><input name="locid" type="text"></td>
-		</tr>
+<!-- 		<tr> -->
+<!-- 			<td class="label">Id: </td> -->
+<!-- 			<td class="control"><input name="locid" type="text"></td> -->
+<!-- 		</tr> -->
 		<tr>
 			<td class="label">Name: </td>
 			<td class="control">

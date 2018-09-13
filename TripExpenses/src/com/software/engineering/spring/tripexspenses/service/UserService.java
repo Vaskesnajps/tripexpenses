@@ -10,4 +10,5 @@ public interface UserService {
 	public void delete(Long userid);
 	public User save(User user);
 	public User findByID(Long userid) ;
+	public User findByUsername(String username);
 }

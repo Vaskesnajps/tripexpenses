@@ -9,9 +9,22 @@
 <title>All users</title>
 </head>
 <body>
-<c:forEach var="user" items="${users}">
-		<p><c:out value="${user}"></c:out></p>
-	</c:forEach>
 
+<table class = "table" border="2" width="600" >
+                <thead>
+                    <tr>
+                        <th>userid</th>
+                        <th>Username</th>  
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="user" items="${users}">
+                        <tr>
+                            <td>${user.userid}</td>
+                            <td>${user.username}</td>                        
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
 </body>
 </html>

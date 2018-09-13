@@ -1,10 +1,23 @@
 package com.software.engineering.spring.tripexspenses.domen;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 /**
@@ -18,17 +31,21 @@ public class Businesstrip implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="my_entity_seq_gen")
+	@SequenceGenerator(name="my_entity_seq_gen", sequenceName="businesstrips_seq")
 	private long bustripid;
 
-	private BigDecimal dayscount;
+	private Long dayscount;
 
 	@Temporal(TemporalType.DATE)
+//	@DateTimeFormat(pattern="DD-MON-RR")
 	private Date fromdate;
 
 	@Temporal(TemporalType.DATE)
+//	@DateTimeFormat(pattern="DD-MON-RR")
 	private Date todate;
 
-	private BigDecimal triptotallow;
+	private Long triptotallow;
 
 	//bi-directional many-to-one association to Employee
 	@ManyToOne
@@ -55,11 +72,11 @@ public class Businesstrip implements Serializable {
 		this.bustripid = bustripid;
 	}
 
-	public BigDecimal getDayscount() {
+	public Long getDayscount() {
 		return this.dayscount;
 	}
 
-	public void setDayscount(BigDecimal dayscount) {
+	public void setDayscount(Long dayscount) {
 		this.dayscount = dayscount;
 	}
 
@@ -79,11 +96,11 @@ public class Businesstrip implements Serializable {
 		this.todate = todate;
 	}
 
-	public BigDecimal getTriptotallow() {
+	public Long getTriptotallow() {
 		return this.triptotallow;
 	}
 
-	public void setTriptotallow(BigDecimal triptotallow) {
+	public void setTriptotallow(Long triptotallow) {
 		this.triptotallow = triptotallow;
 	}
 

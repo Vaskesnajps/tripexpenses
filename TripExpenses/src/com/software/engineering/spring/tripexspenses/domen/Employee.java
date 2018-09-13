@@ -19,6 +19,8 @@ public class Employee implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="my_entity_seq_gen")
+	@SequenceGenerator(name="my_entity_seq_gen", sequenceName="employees_seq")
 	private long employeeid;
 
 	private String email;
@@ -120,6 +122,11 @@ public class Employee implements Serializable {
 		this.users = users;
 	}
 
+	@Override
+	public String toString() {
+		return fullname;
+	}
+
 //	public User addUser(User user) {
 //		getUsers().add(user);
 //		user.setEmployee(this);
@@ -134,10 +141,5 @@ public class Employee implements Serializable {
 //		return user;
 //	}
 
-	@Override
-	public String toString() {
-		return "Employee [employeeid=" + employeeid + ", email=" + email + ", fullname=" + fullname + ", haslicence="
-				+ haslicence + ", passnum=" + passnum + ", persidnum=" + persidnum + "]";
-	}
 
 }

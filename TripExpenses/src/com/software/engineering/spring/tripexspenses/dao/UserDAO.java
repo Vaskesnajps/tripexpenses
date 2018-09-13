@@ -8,5 +8,5 @@ import com.software.engineering.spring.tripexspenses.domen.User;
 
 @Repository("usersDAO")
 public interface UserDAO extends JpaRepository<User, Long>{
-
+	public User findByUsername(String username);
 }

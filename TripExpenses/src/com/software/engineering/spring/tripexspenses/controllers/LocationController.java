@@ -28,6 +28,13 @@ public class LocationController {
 		
 		return "addlocation";
 	}
+	@RequestMapping("/deletelocation")
+	public String deleteLocation(Model model, Long locid) {
+		locationService.delete(locid);
+		List<Location> locations = locationService.findAll();
+		model.addAttribute("locations", locations);
+		return "locations";
+	}
 
 	@RequestMapping(value = "/docreatelocation", method = RequestMethod.POST)
 	public String doCreatedepartment(Model model,  Location location,  BindingResult result) {

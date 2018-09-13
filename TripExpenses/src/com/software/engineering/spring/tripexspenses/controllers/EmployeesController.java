@@ -39,4 +39,11 @@ public class EmployeesController {
 		return "addemployee";
 
 	}
+	@RequestMapping("/deleteemployee")
+	public String deleteLocation(Model model, Long employeeid) {
+		employeeService.delete(employeeid);
+		List<Employee> employees = employeeService.findAll();
+		model.addAttribute("employees", employees);
+		return "employees";
+	}
 }

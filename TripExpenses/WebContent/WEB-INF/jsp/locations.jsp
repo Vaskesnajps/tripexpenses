@@ -9,9 +9,30 @@
 <title>All locations</title>
 </head>
 <body>
-<c:forEach var="location" items="${locations}">
-		<p><c:out value="${location}"></c:out></p>
-	</c:forEach>
-
+                <table class = "table" border="2" width="600" >
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>  
+                        <th>Country</th> 
+                        <th>Daily allowance</th>  
+                          <th>Location distance</th>
+                        <th>delete</th>                  
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="location" items="${locations}">
+                        <tr>
+                            <td>${location.locid}</td>
+                            <td>${location.locname}</td>                        
+                            <td>${location.loccountry}</td>
+                            <td>${location.locdailyallowance}</td>  
+                            <td>${location.locdistance}</td>  
+                            <td><a onclick="if(!(confirm('Are u sure u want to delete? '))) return false" href="${pageContext.request.contextPath}/deletelocation?locid=${location.locid}">Delete</a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
 </body>
 </html>

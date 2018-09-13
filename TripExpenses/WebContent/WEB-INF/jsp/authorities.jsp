@@ -9,9 +9,23 @@
 <title>All authorities</title>
 </head>
 <body>
-<c:forEach var="authority" items="${authorities}">
-		<p><c:out value="${authority}"></c:out></p>
-	</c:forEach>
-
+<table class = "table" border="2" width="600" >
+                <thead>
+                    <tr>
+                        <th>Authority Id</th>
+                        <th>Authority</th>  
+                        <th>Username</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="authority" items="${authorities}">
+                        <tr>
+                            <td>${authority.authorityid}</td>
+                            <td>${authority.authority}</td>                        
+                            <td>${authority.username}</td> 
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
 </body>
 </html>

@@ -14,7 +14,7 @@
 	<p><a href="${pageContext.request.contextPath}/users">Show all users</a></p>
 	<p><a href="${pageContext.request.contextPath}/adduser">Add new user</a></p>
 	<p><a href="${pageContext.request.contextPath}/authorities">Show all authorities</a></p>
-	<p><a href="${pageContext.request.contextPath}/addauthority">Add new authority</a></p>
-	
+	<p><a href="${pageContext.request.contextPath}/addbusinesstrip">Add new business trip</a></p>
+	<p><a href="${pageContext.request.contextPath}/businesstrips">Show all business trips</a></p>
 </body>
 </html>
