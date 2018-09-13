@@ -26,7 +26,7 @@ public class User implements Serializable {
 	private String username;
 
 	//bi-directional many-to-one association to Authority
-//	@OneToMany(mappedBy="user")
+//	@OneToMany(mappedBy="username",fetch = FetchType.EAGER)
 //	private List<Authority> authorities;
 
 	//bi-directional many-to-one association to Authority
@@ -37,7 +37,7 @@ public class User implements Serializable {
 
 
 	@ManyToOne
-	@JoinColumn(name="EMPLOYEEID")
+	@JoinColumn(name="EMPLOYEES_EMPLOYEEID")
 	private Employee employeeid;
 	
 	public User() {

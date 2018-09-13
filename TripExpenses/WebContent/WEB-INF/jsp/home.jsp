@@ -13,6 +13,8 @@
 	<p><a href="${pageContext.request.contextPath}/addemployee">Add new employee</a></p>
 	<p><a href="${pageContext.request.contextPath}/users">Show all users</a></p>
 	<p><a href="${pageContext.request.contextPath}/adduser">Add new user</a></p>
+	<p><a href="${pageContext.request.contextPath}/authorities">Show all authorities</a></p>
+	<p><a href="${pageContext.request.contextPath}/addauthority">Add new authority</a></p>
 	
 </body>
 </html>
