@@ -10,19 +10,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.software.engineering.spring.tripexspenses.domen.Employee;
-import com.software.engineering.spring.tripexspenses.domen.Location;
 import com.software.engineering.spring.tripexspenses.service.EmployeesService;
 
 @Controller
 public class EmployeeController {
+	
 	@Autowired
 	EmployeesService employeeService;
-	@RequestMapping("/employes")
+	@RequestMapping("/employees")
 	public String showEmployes(Model model) {
 		List<Employee> employes=employeeService.findAll();
-		model.addAttribute("employes",employes);
-		return "employes";
+		model.addAttribute("employees",employes);
+		return "employees";
 	}
+	
 	@RequestMapping("/addemployee")
 	public String createEmployee(Model model) {
 		

@@ -12,50 +12,17 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.springframework.format.annotation.DateTimeFormat;
-
-
 @Entity
 @Table(name = "BILLS")
-<<<<<<< HEAD
-//@XmlRootElement
-//@NamedQueries({
-//    @NamedQuery(name = "Bills.findAll", query = "SELECT b FROM Bills b")
-//    , @NamedQuery(name = "Bills.findByBillid", query = "SELECT b FROM Bills b WHERE b.billid = :billid")
-//    , @NamedQuery(name = "Bills.findByBillitem", query = "SELECT b FROM Bills b WHERE b.billitem = :billitem")
-//    , @NamedQuery(name = "Bills.findByPrice", query = "SELECT b FROM Bills b WHERE b.price = :price")
-//    , @NamedQuery(name = "Bills.findByBilldate", query = "SELECT b FROM Bills b WHERE b.billdate = :billdate")})
-=======
-
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Bills.findAll", query = "SELECT b FROM Bills b")
-    , @NamedQuery(name = "Bills.findByBillid", query = "SELECT b FROM Bills b WHERE b.billid = :billid")
-    , @NamedQuery(name = "Bills.findByBillitem", query = "SELECT b FROM Bills b WHERE b.billitem = :billitem")
-    , @NamedQuery(name = "Bills.findByPrice", query = "SELECT b FROM Bills b WHERE b.price = :price")
-
-//@XmlRootElement
-//@NamedQueries({
-//    @NamedQuery(name = "Bills.findAll", query = "SELECT b FROM Bills b")
-//    , @NamedQuery(name = "Bills.findByBillid", query = "SELECT b FROM Bills b WHERE b.billid = :billid")
-//    , @NamedQuery(name = "Bills.findByBillitem", query = "SELECT b FROM Bills b WHERE b.billitem = :billitem")
-//    , @NamedQuery(name = "Bills.findByPrice", query = "SELECT b FROM Bills b WHERE b.price = :price")
-//    , @NamedQuery(name = "Bills.findByBilldate", query = "SELECT b FROM Bills b WHERE b.billdate = :billdate")})
-
->>>>>>> branch 'master' of https://github.com/bogaroskidejan/tripexpenses.git
 public class Bill implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @NotNull
@@ -73,19 +40,10 @@ public class Bill implements Serializable {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date billDate;
-<<<<<<< HEAD
     
-    @JoinColumn(name = "TRIPBILLS_TRIPbillId", referencedColumnName = "tripbillid")
-=======
-
-    @JoinColumn(name = "TRIPBILLS_TRIPbillId", referencedColumnName = "TRIPbillId")
->>>>>>> branch 'master' of https://github.com/bogaroskidejan/tripexpenses.git
-    @ManyToOne(optional = false)
-
-//    @JoinColumn(name = "TRIPBILLS_TRIPBILLID", referencedColumnName = "TRIPBILLID")
+    @JoinColumn(name = "TRIPBILLS_TRIPBILLID", referencedColumnName = "TRIPBILLID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-
-    private TripBill tripBillsTripbillId;
+    private TripBill tripbillsTripbillid;
 
     public Bill() {
     }
@@ -127,11 +85,11 @@ public class Bill implements Serializable {
     }
 
     public TripBill gettripBillsTripbillId() {
-        return tripBillsTripbillId;
+        return tripbillsTripbillid;
     }
 
     public void settripBillsTripbillId(TripBill tripBillsTripbillId) {
-        this.tripBillsTripbillId = tripBillsTripbillId;
+        this.tripbillsTripbillid = tripBillsTripbillId;
     }
 
     @Override
@@ -154,19 +112,10 @@ public class Bill implements Serializable {
         return true;
     }
 
-<<<<<<< HEAD
 	@Override
 	public String toString() {
 		return "Bill [billId=" + billId + ", billItem=" + billItem + ", price=" + price + ", billDate=" + billDate
 				+ "]";
-	}
+		}
 
-}
-=======
-    @Override
-    public String toString() {
-        return "domen.Bill[ billId=" + billId + " ]";
-    }
-    
-}
->>>>>>> branch 'master' of https://github.com/bogaroskidejan/tripexpenses.git
+	}

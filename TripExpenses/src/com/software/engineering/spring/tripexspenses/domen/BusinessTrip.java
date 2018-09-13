@@ -9,14 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -25,54 +22,43 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "BUSINESSTRIPS")
-//@XmlRootElement
-//@NamedQueries({
-//    @NamedQuery(name = "Businesstrips.findAll", query = "SELECT b FROM Businesstrips b")
-//    , @NamedQuery(name = "Businesstrips.findByBustripid", query = "SELECT b FROM Businesstrips b WHERE b.bustripid = :bustripid")
-//    , @NamedQuery(name = "Businesstrips.findByFromdate", query = "SELECT b FROM Businesstrips b WHERE b.fromdate = :fromdate")
-//    , @NamedQuery(name = "Businesstrips.findByTodate", query = "SELECT b FROM Businesstrips b WHERE b.todate = :todate")
-//    , @NamedQuery(name = "Businesstrips.findByDayscount", query = "SELECT b FROM Businesstrips b WHERE b.dayscount = :dayscount")
-//    , @NamedQuery(name = "Businesstrips.findByTriptotallow", query = "SELECT b FROM Businesstrips b WHERE b.triptotallow = :triptotallow")})
 public class BusinessTrip implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "BUSTRIPID")
     private Long bustripid;
+    
     @Column(name = "FROMDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fromdate;
+    
     @Column(name = "TODATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date todate;
+    
     @Column(name = "DAYSCOUNT")
     private Long dayscount;
+    
     @Column(name = "TRIPTOTALLOW")
     private Long triptotallow;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "businesstripsBustripid")
-<<<<<<< HEAD
-    private List<TripBill> tripbillsList;
-=======
     private List<TripBill> tripbillList;
->>>>>>> branch 'master' of https://github.com/bogaroskidejan/tripexpenses.git
+    
     @JoinColumn(name = "EMPLOYEES_EMPLOYEEID", referencedColumnName = "EMPLOYEEID")
     @ManyToOne(optional = false)
     private Employee employeesEmployeeid;
+    
     @JoinColumn(name = "LOCATIONS_LOCID", referencedColumnName = "LOCID")
     @ManyToOne(optional = false)
     private Location locationsLocid;
 
     public BusinessTrip() {
     }
-
-<<<<<<< HEAD
-    public BusinessTrip(BigDecimal bustripid) {
-=======
     public BusinessTrip(Long bustripid) {
->>>>>>> branch 'master' of https://github.com/bogaroskidejan/tripexpenses.git
         this.bustripid = bustripid;
     }
 
@@ -117,22 +103,12 @@ public class BusinessTrip implements Serializable {
     }
 
     @XmlTransient
-<<<<<<< HEAD
-    public List<TripBill> getTripbillsList() {
-        return tripbillsList;
-=======
     public List<TripBill> getTripbillList() {
         return tripbillList;
->>>>>>> branch 'master' of https://github.com/bogaroskidejan/tripexpenses.git
     }
 
-<<<<<<< HEAD
-    public void setTripbillsList(List<TripBill> tripbillsList) {
-        this.tripbillsList = tripbillsList;
-=======
     public void setTripbillList(List<TripBill> tripbillsList) {
         this.tripbillList = tripbillsList;
->>>>>>> branch 'master' of https://github.com/bogaroskidejan/tripexpenses.git
     }
 
     public Employee getEmployeesEmployeeid() {
@@ -170,10 +146,12 @@ public class BusinessTrip implements Serializable {
         }
         return true;
     }
+	@Override
+	public String toString() {
+		return "BusinessTrip [bustripid=" + bustripid + ", fromdate=" + fromdate + ", todate=" + todate + ", dayscount="
+				+ dayscount + ", triptotallow=" + triptotallow + ", " + ", tripbillList="
+				+ tripbillList + "]";
+	}
 
-    @Override
-    public String toString() {
-        return "domen.Businesstrip[ bustripid=" + bustripid + " ]";
-    }
     
 }

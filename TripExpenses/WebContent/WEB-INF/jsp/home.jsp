@@ -13,5 +13,9 @@
 	<p><a href="${pageContext.request.contextPath}/addbill">Add new trip</a></p>
 	<p><a href="${pageContext.request.contextPath}/tripbills">Show all trip bills</a></p>
 	<p><a href="${pageContext.request.contextPath}/addbill">Add new trip bill</a></p>
+	<p><a href="${pageContext.request.contextPath}/tripbills">Show all business trips</a></p>
+	<p><a href="${pageContext.request.contextPath}/addbusinesstrip">Add new business trip</a></p>
+	<p><a href="${pageContext.request.contextPath}/employees">Show all employees</a></p>
+	<p><a href="${pageContext.request.contextPath}/addemployee">Add new employee</a></p>
 </body>
 </html>
