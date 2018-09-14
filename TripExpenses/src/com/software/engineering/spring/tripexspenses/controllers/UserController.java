@@ -1,5 +1,6 @@
 package com.software.engineering.spring.tripexspenses.controllers;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ public class UserController {
 	public String doCreateUser(Model model,  User user, Long employeeid, BindingResult result) {
 		Employee employee=employeeService.findByID(employeeid);
 		user.setEmployee(employee);
+		user.setEnabled(new BigDecimal(1));
 		userService.save(user);
 		authoritiesService.addAuthorities(user);
 		System.out.println(user);

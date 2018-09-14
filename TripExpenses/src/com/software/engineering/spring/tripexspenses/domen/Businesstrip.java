@@ -47,8 +47,8 @@ public class Businesstrip implements Serializable {
 	private Location location;
 
 	//bi-directional many-to-one association to Tripbill
-	@OneToMany(mappedBy="businesstrip")
-	private List<Tripbill> tripbills;
+	@OneToOne(mappedBy="businesstrip")
+	private Tripbill tripbills;
 
 	public Businesstrip() {
 	}
@@ -131,26 +131,16 @@ public class Businesstrip implements Serializable {
 		this.location = location;
 	}
 
-	public List<Tripbill> getTripbills() {
-		return this.tripbills;
+	
+
+	
+
+	public Tripbill getTripbills() {
+		return tripbills;
 	}
 
-	public void setTripbills(List<Tripbill> tripbills) {
+	public void setTripbills(Tripbill tripbills) {
 		this.tripbills = tripbills;
-	}
-
-	public Tripbill addTripbill(Tripbill tripbill) {
-		getTripbills().add(tripbill);
-		tripbill.setBusinesstrip(this);
-
-		return tripbill;
-	}
-
-	public Tripbill removeTripbill(Tripbill tripbill) {
-		getTripbills().remove(tripbill);
-		tripbill.setBusinesstrip(null);
-
-		return tripbill;
 	}
 
 	@Override

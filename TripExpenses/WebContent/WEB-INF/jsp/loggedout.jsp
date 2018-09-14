@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Error! Sorry for inconvenience! Try again later! </h1>
+<h1>You have logged out!!!</h1>
 </body>
 </html>

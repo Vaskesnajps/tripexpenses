@@ -5,11 +5,12 @@
 	<configSuffixes>
 		<configSuffix><![CDATA[xml]]></configSuffix>
 	</configSuffixes>
-	<enableImports><![CDATA[false]]></enableImports>
+	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
 		<config>src/com/software/engineering/spring/tripexspenses/config/dao-context.xml</config>
 		<config>src/com/software/engineering/spring/tripexspenses/config/service-context.xml</config>
 		<config>WebContent/WEB-INF/tripexspenses-servlet.xml</config>
+		<config>src/com/software/engineering/spring/tripexspenses/config/security-context.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

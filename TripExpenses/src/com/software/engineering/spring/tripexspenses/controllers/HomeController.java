@@ -15,9 +15,9 @@ public class HomeController {
 	public String showLogin( ) {
 		return "login";
 	}
-//	@RequestMapping("/loggedout")
-//	public String showLoggedOut() {
-//	
-//		return "loggedout";
-//	}
+	@RequestMapping("/loggedout")
+	public String showLoggedOut() {
+	
+		return "loggedout";
+	}
 }

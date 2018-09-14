@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.software.engineering.spring.tripexspenses.domen.Bill;
 import com.software.engineering.spring.tripexspenses.domen.Businesstrip;
+import com.software.engineering.spring.tripexspenses.domen.Tripbill;
 import com.software.engineering.spring.tripexspenses.service.BillService;
 import com.software.engineering.spring.tripexspenses.service.BusinessTripService;
+import com.software.engineering.spring.tripexspenses.service.TripBillService;
 
 @Controller
 public class BillController {
@@ -30,6 +32,9 @@ public class BillController {
 	
 	@Autowired
 	private BusinessTripService businessTripService;
+	
+	@Autowired
+	private TripBillService tripBillService;
 	
 	@RequestMapping("/bills")
 	public String showLocations(Model model) {
@@ -46,18 +51,40 @@ public class BillController {
 	}
 
 	@RequestMapping(value = "/docreatebill", method = RequestMethod.POST)
-	public String doCreateBill(Model model, String billdate,Long bustripid, Bill bill,  BindingResult result) throws ParseException {
-	Businesstrip busTrip=businessTripService.findByID(bustripid);
+	public String doCreateBill(Model model, String billdate, Long bustripid, Bill bill,  BindingResult result) throws ParseException {
+		Businesstrip busTrip=businessTripService.findByID(bustripid);
 		bill.setBusinesstrip(busTrip);
 		Date date = new SimpleDateFormat("dd-MM-yyyy").parse(billdate); 
 		bill.setBilldate(date);
 		
+		BigDecimal pricePerBill = bill.getPrice();
+		Businesstrip businessTrip = bill.getBusinesstrip();
+		Tripbill tripBill = businessTrip.getTripbills();
+		BigDecimal tripBillTotal = tripBill.getTotalamount();
+
+		if(tripBillTotal == null) {
+			tripBillTotal = new BigDecimal(0);
+			System.out.println("inicijalizovao");
+		}
+		if(tripBillTotal != new BigDecimal(0)) {
+			tripBillTotal = tripBillTotal.add(pricePerBill);
+			System.out.println("sve radi lepo");
+		}
+		else {
+			System.out.println("neceeee");
+		}
+		tripBill.setTotalamount(tripBillTotal);
+		System.out.println(tripBillTotal);
+		tripBillService.save(tripBill);
+		System.out.println(tripBill);
 		billService.save(bill);
 		System.out.println(bill);
 		System.out.println("Bill added successfully");
 		model.addAttribute("message", "Bill added succesfully!!!");
 		
-		return "addbill";
+		List<Bill> bills = billService.findAll();
+		model.addAttribute("bills", bills);
+		return "bills";
 	}
 	
 	@RequestMapping(value = "/deletebill")
@@ -85,6 +112,4 @@ public class BillController {
 		model.addAttribute("message","Bill updated succesfully!!!");
 		return "bills";
 	}
-
-
 }
