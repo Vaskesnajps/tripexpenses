@@ -18,8 +18,8 @@ public class Location implements Serializable {
 
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="my_entity_seq_gen")
-	@SequenceGenerator(name="my_entity_seq_gen", sequenceName="locations_seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="my_entity_seq_gen4")
+	@SequenceGenerator(name="my_entity_seq_gen4", sequenceName="locations_seq")
 	private long locid;
 
 	private String loccountry;

@@ -12,10 +12,6 @@
 <form action="${pageContext.request.contextPath}/docreateuser" method="post">
 	<table class="formtable">
 		<tr>
-			<td class="label">Id: </td>
-			<td class="control"><input name="userid" type="text"></td>
-		</tr>
-		<tr>
 			<td class="label">Username: </td>
 			<td class="control">
 			<input  class="control" name="username"  />

@@ -3,7 +3,6 @@ package com.software.engineering.spring.tripexspenses.domen;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.List;
 
 
 /**
@@ -17,13 +16,11 @@ public class Tripbill implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="my_entity_seq_gen5")
+	@SequenceGenerator(name="my_entity_seq_gen5", sequenceName="tripbills_seq")
 	private long tripbillid;
 
 	private BigDecimal totalamount;
-
-	//bi-directional many-to-one association to Bill
-	@OneToMany(mappedBy="tripbill")
-	private List<Bill> bills;
 
 	//bi-directional many-to-one association to Businesstrip
 	@ManyToOne
@@ -47,28 +44,6 @@ public class Tripbill implements Serializable {
 
 	public void setTotalamount(BigDecimal totalamount) {
 		this.totalamount = totalamount;
-	}
-
-	public List<Bill> getBills() {
-		return this.bills;
-	}
-
-	public void setBills(List<Bill> bills) {
-		this.bills = bills;
-	}
-
-	public Bill addBill(Bill bill) {
-		getBills().add(bill);
-		bill.setTripbill(this);
-
-		return bill;
-	}
-
-	public Bill removeBill(Bill bill) {
-		getBills().remove(bill);
-		bill.setTripbill(null);
-
-		return bill;
 	}
 
 	public Businesstrip getBusinesstrip() {

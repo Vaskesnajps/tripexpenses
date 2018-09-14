@@ -44,10 +44,10 @@ public class TripBillController {
 	}
 	
 	@RequestMapping(value = "/deletetripbill")
-	public String delete(Model model, Long tripbillId) {
-		tripBillService.delete(tripbillId);
-		List<Tripbill> tripBills = tripBillService.findAll();
-		model.addAttribute("tripbills", tripBills);
+	public String delete(Model model, Long tripbillid) {
+		tripBillService.delete(tripbillid);
+		List<Tripbill> tripbills = tripBillService.findAll();
+		model.addAttribute("tripbills", tripbills);
 		return "tripbills";
 	}
 

@@ -19,8 +19,8 @@ public class Employee implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="my_entity_seq_gen")
-	@SequenceGenerator(name="my_entity_seq_gen", sequenceName="employees_seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="my_entity_seq_gen3")
+	@SequenceGenerator(name="my_entity_seq_gen3", sequenceName="employees_seq")
 	private long employeeid;
 
 	private String email;

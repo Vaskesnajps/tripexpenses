@@ -17,6 +17,8 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="my_entity_seq_gen7")
+	@SequenceGenerator(name="my_entity_seq_gen7", sequenceName="user_seq")
 	private long userid;
 
 	private BigDecimal enabled;

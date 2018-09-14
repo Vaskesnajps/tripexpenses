@@ -23,17 +23,9 @@
 			<input  type="text"  name="todate"  />
 			</td>
 		</tr>
-		
-		<tr>
-			<td class="label">Trip total allowance: </td>
-			<td class="control">
-			<input name="triptotallow"  />
-			</td>
-		</tr>
 		<tr>
 				<td class="label">Location</td>
 				<td>
-				
 				<select class="control" name="locid" >
 						<c:forEach var="location" items="${locations}">
 							<option value="${location.locid}">${location.locname}</option>

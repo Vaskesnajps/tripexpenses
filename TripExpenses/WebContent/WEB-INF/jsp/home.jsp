@@ -16,5 +16,9 @@
 	<p><a href="${pageContext.request.contextPath}/authorities">Show all authorities</a></p>
 	<p><a href="${pageContext.request.contextPath}/addbusinesstrip">Add new business trip</a></p>
 	<p><a href="${pageContext.request.contextPath}/businesstrips">Show all business trips</a></p>
+	<p><a href="${pageContext.request.contextPath}/tripbills">Show all trip bills</a></p>
+	<p><a href="${pageContext.request.contextPath}/addbill">Add new bill</a></p>
+	<p><a href="${pageContext.request.contextPath}/bills">Show all bills</a></p>
+	<p><a href="${pageContext.request.contextPath}/login">login</a></p>
 </body>
 </html>

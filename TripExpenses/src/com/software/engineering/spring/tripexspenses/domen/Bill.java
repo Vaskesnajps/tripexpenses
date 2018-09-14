@@ -17,6 +17,8 @@ public class Bill implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="my_entity_seq_gen6")
+	@SequenceGenerator(name="my_entity_seq_gen6", sequenceName="bill_seq")
 	private long billid;
 
 	@Temporal(TemporalType.DATE)
@@ -26,10 +28,10 @@ public class Bill implements Serializable {
 
 	private BigDecimal price;
 
-	//bi-directional many-to-one association to Tripbill
+	//bi-directional many-to-one association to Businesstrip
 	@ManyToOne
-	@JoinColumn(name="TRIPBILLS_TRIPBILLID")
-	private Tripbill tripbill;
+	@JoinColumn(name="BUSINESSTRIPS_BUSTRIPID")
+	private Businesstrip businesstrip;
 
 	public Bill() {
 	}
@@ -66,12 +68,12 @@ public class Bill implements Serializable {
 		this.price = price;
 	}
 
-	public Tripbill getTripbill() {
-		return this.tripbill;
+	public Businesstrip getBusinesstrip() {
+		return this.businesstrip;
 	}
 
-	public void setTripbill(Tripbill tripbill) {
-		this.tripbill = tripbill;
+	public void setBusinesstrip(Businesstrip businesstrip) {
+		this.businesstrip = businesstrip;
 	}
 
 }

@@ -17,8 +17,8 @@ public class Authority implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="my_entity_seq_gen")
-	@SequenceGenerator(name="my_entity_seq_gen", sequenceName="authorities_seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="my_entity_seq_gen1")
+	@SequenceGenerator(name="my_entity_seq_gen1", sequenceName="authorities_seq")
 	private long authorityid;
 
 	private String authority;

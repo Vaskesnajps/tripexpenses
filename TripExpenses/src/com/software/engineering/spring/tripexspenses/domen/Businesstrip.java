@@ -1,23 +1,10 @@
 package com.software.engineering.spring.tripexspenses.domen;
 
 import java.io.Serializable;
+import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 
 /**
@@ -31,21 +18,23 @@ public class Businesstrip implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="my_entity_seq_gen")
-	@SequenceGenerator(name="my_entity_seq_gen", sequenceName="businesstrips_seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="my_entity_seq_gen2")
+	@SequenceGenerator(name="my_entity_seq_gen2", sequenceName="businesstrips_seq")
 	private long bustripid;
 
 	private Long dayscount;
 
 	@Temporal(TemporalType.DATE)
-//	@DateTimeFormat(pattern="DD-MON-RR")
 	private Date fromdate;
 
 	@Temporal(TemporalType.DATE)
-//	@DateTimeFormat(pattern="DD-MON-RR")
 	private Date todate;
 
-	private Long triptotallow;
+	private BigDecimal triptotallow;
+
+	//bi-directional many-to-one association to Bill
+	@OneToMany(mappedBy="businesstrip")
+	private List<Bill> bills;
 
 	//bi-directional many-to-one association to Employee
 	@ManyToOne
@@ -96,12 +85,34 @@ public class Businesstrip implements Serializable {
 		this.todate = todate;
 	}
 
-	public Long getTriptotallow() {
+	public BigDecimal getTriptotallow() {
 		return this.triptotallow;
 	}
 
-	public void setTriptotallow(Long triptotallow) {
+	public void setTriptotallow(BigDecimal triptotallow) {
 		this.triptotallow = triptotallow;
+	}
+
+	public List<Bill> getBills() {
+		return this.bills;
+	}
+
+	public void setBills(List<Bill> bills) {
+		this.bills = bills;
+	}
+
+	public Bill addBill(Bill bill) {
+		getBills().add(bill);
+		bill.setBusinesstrip(this);
+
+		return bill;
+	}
+
+	public Bill removeBill(Bill bill) {
+		getBills().remove(bill);
+		bill.setBusinesstrip(null);
+
+		return bill;
 	}
 
 	public Employee getEmployee() {
@@ -140,6 +151,12 @@ public class Businesstrip implements Serializable {
 		tripbill.setBusinesstrip(null);
 
 		return tripbill;
+	}
+
+	@Override
+	public String toString() {
+		return employee + " in " + location + " from " + fromdate + 
+			" to " + todate;
 	}
 
 }

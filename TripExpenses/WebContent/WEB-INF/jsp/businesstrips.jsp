@@ -16,9 +16,11 @@
                         <th>ID</th>
                         <th>From Date:</th>  
                         <th>To Date:</th>  
-                        <th>Days count:</th>  
+                        <th>Days count:</th> 
+                          <th>Total allowance:</th> 
                         <th>Employee:</th>
-                        <th>Location:</th>    
+                        <th>Location:</th>  
+                        <th>Action:</th>  
                     </tr>
                 </thead>
                 <tbody>
@@ -28,8 +30,11 @@
                             <td>${businesstrip.fromdate}</td>  
                             <td>${businesstrip.todate}</td>  
                             <td>${businesstrip.dayscount}</td>  
+                             <td>${businesstrip.triptotallow}</td>  
                             <td>${businesstrip.employee}</td>  
-                            <td>${businesstrip.location}</td>                        
+                            <td>${businesstrip.location}</td>  
+                            <td><a onclick="if(!(confirm('Are u sure u want to delete? '))) return false" href="${pageContext.request.contextPath}/deletebusinesstrip?bustripid=${businesstrip.bustripid}">Delete</a>
+                            </td>                      
                         </tr>
                     </c:forEach>
                 </tbody>
