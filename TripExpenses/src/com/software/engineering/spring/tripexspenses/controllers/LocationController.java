@@ -1,5 +1,6 @@
 package com.software.engineering.spring.tripexspenses.controllers;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,6 @@ public class LocationController {
 		model.addAttribute("locations",locations);
 		return "locations";
 	}
-	@RequestMapping("/addlocation")
-	public String createLocation(Model model) {
-		
-		return "addlocation";
-	}
 	@RequestMapping("/deletelocation")
 	public String deleteLocation(Model model, Long locid) {
 		locationService.delete(locid);
@@ -48,5 +44,30 @@ public class LocationController {
 		return "locations";
 
 	}
+	@RequestMapping("/updatelocation")
+	public String updateLocation(Model model, Long locid) {
+		
+		
+		Location location=locationService.findByID(locid);
+		
+		
+		model.addAttribute("location", location);
+		return "updatelocations";
+	}
+	@RequestMapping(value = "/doupdatelocation", method = RequestMethod.POST)
+	public String doUpdateLocation(Model model,  Location location,String loccountry,String locname, BigDecimal locdailyallowance, BigDecimal locdistance,  long locid,  BindingResult result) {
+		Location location1 =locationService.findByID(locid);
+		location1.setLoccountry(loccountry);
+		location1.setLocdailyallowance(locdailyallowance);
+		location1.setLocdistance(locdistance);
+		location1.setLocname(locname);
+		locationService.save(location1);
+		System.out.println(location);
+		System.out.println("location updated successfully");
+		model.addAttribute("message","Location updated succesfully!!!");
+		List<Location> locations=locationService.findAll();
+		model.addAttribute("locations",locations);
+		return "locations";
 
+	}
 }

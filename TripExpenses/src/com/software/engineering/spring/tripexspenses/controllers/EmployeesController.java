@@ -23,11 +23,7 @@ public class EmployeesController {
 		model.addAttribute("employees",employees);
 		return "employees";
 	}
-	@RequestMapping("/addemployee")
-	public String createEmployee(Model model) {
-		
-		return "addemployee";
-	}
+
 	@RequestMapping(value = "/docreateemployee", method = RequestMethod.POST)
 	public String doCreatedepartment(Model model,  Employee employee,  BindingResult result) {
 	

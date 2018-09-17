@@ -53,16 +53,6 @@ public class BusinessTripController {
 		return "businesstrips";
 	}
 	
-	@RequestMapping("/addbusinesstrip")
-	public String createBusinesstrip(Model model) {
-		List<Employee> employees = employeeService.findAll();
-		model.addAttribute("employees", employees);
-		
-		List<Location> locations = locationService.findAll();
-		model.addAttribute("locations", locations);
-		
-		return "addbusinesstrip";
-	}
 
 	@RequestMapping(value = "/docreatebusinesstrip", method = RequestMethod.POST)
 	public String doCreateBusinesstrip (Model model,String fromdate, String todate, Long locid, Businesstrip businessTrip,  BindingResult result)throws Exception {

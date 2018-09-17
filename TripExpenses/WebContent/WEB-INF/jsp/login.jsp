@@ -39,7 +39,7 @@
                         margin-top: 8%;
                         }
                         #login {
-                        background-image: linear-gradient(to bottom, rgba(56, 204, 241, 1),rgba(56, 204, 241, 1),rgba(99,123,131,0.3));
+                        background-image: linear-gradient(to bottom, rgba(170, 170, 170, 1),rgba(170, 170, 170, 1),rgba(99,123,131,0.3));
                         border-radius: 30px;
                         width: 100%;
                         z-index: 20;
@@ -51,7 +51,7 @@
                         display: none;
                         }
                         #signup {
-                        background-image: linear-gradient(to bottom, rgba(56, 204, 241, 1),rgba(56, 204, 241, 1),rgba(99,123,131,0.3));
+                        background-image: linear-gradient(to bottom, rgba(170, 170, 170, 1),rgba(170, 170, 170, 1),rgba(99,123,131,0.3));
                         border-radius: 30px;
                         width: 100%;
                         z-index: 20;
@@ -64,13 +64,14 @@
                         }
                         #p1 {
                         font-family: roboto;
-                        font-size: 30px;
+                        font-size: 40px;
                         font-style: italic;
                         font-weight: bold;
-                        color: rgba(22, 22, 22, 0.74);
+                        color: rgba(247, 247, 247, 0.9);
                         }
                         label {
                         font-weight: bold;
+                        color: white;
                         }
                         .navbar-brand {
                         margin: 0 auto;
@@ -89,6 +90,9 @@
                         .invalid {
                         border: 2px solid red;
                         }
+                        .dataTables_length{
+                                display: none;
+                         }
                         .error {
                         color: red;
                         }

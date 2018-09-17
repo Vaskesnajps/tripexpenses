@@ -35,6 +35,11 @@
                                 $(".col-xl-12").hide();
                                 $("#formica").show();
                                 }   );
+                                
+                                $("#Update").click(function(event) {
+                                    $(".col-xl-12").hide();
+                                    $("#formica1").show();
+                                    }   );
 
                                 $('#example').DataTable({
                                 "pageLength": 5
@@ -60,7 +65,7 @@
                                 align-self: center;
                                 }
                                 #login {
-                                background-image: linear-gradient(to bottom, rgba(56, 204, 241, 1),rgba(56, 204, 241, 1),rgba(99,123,131,0.3));
+                                background-image: linear-gradient(to bottom, rgba(170, 170, 170, 1),rgba(170, 170, 170, 1),rgba(99,123,131,0.3));
                                 border-radius: 30px;
                                 width: 100%;
                                 z-index: 20;
@@ -71,17 +76,19 @@
                                 border: 3px solid #ffffffc9;
                                 display: none;
                                 }
+                                
                                 #p1 {
-                                font-family: roboto;
-                                font-size: 30px;
-                                font-style: italic;
-                                font-weight: bold;
-                                color: rgba(22, 22, 22, 0.74);
-                                }
-                                label {
-                                font-weight: bold;
-                                padding: 10px 0 0 10px;
-                                }
+		                        font-family: roboto;
+		                        font-size: 30px;
+		                        font-style: italic;
+		                        font-weight: bold;
+		                        color: rgba(247, 247, 247, 0.74);
+		                        }
+		                        label {
+		                        font-weight: bold;
+		                        color: white;
+		                        padding: 10px 0 0 10px;
+		                        }
                                 .navbar-brand {
                                 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
                                 }
@@ -105,15 +112,17 @@
                                 border-radius: 50px;
                                 border: 1px solid #d8d8d8c5;
                                 }
-
+								.dataTables_length{
+                                display: none;
+                                }
                                 #divic{
-                                background-image: linear-gradient(to bottom, rgba(56, 204, 241, 1),rgba(56, 204, 241, 0.5),rgba(99,123,131,0.3));
+                                background-image: linear-gradient(to bottom, rgba(170, 170, 170, 1),rgba(170, 170, 170, 0.5),rgba(99,123,131,0.3));
                                 margin-top: 2%;
                                 align-content: center;
                                 align-items: center;
                                 align-self: center;
                                 border-radius: 30px;
-                                /* display: none; */
+                                display: none;
                                 }
 
                                 .row{
@@ -125,9 +134,9 @@
                                 .container-fluid{
                                 }
         
-                                #formica{
+                                #formica, #formica1{
                                 display: none;
-                                background-image: linear-gradient(to bottom, rgba(56, 204, 241, 1),rgba(56, 204, 241, 1),rgba(99,123,131,0.3));
+                                background-image: linear-gradient(to bottom, rgba(170, 170, 170, 1),rgba(170, 170, 170, 1),rgba(99,123,131,0.3));
                                 border-radius: 30px;
                                 width: 70%;
                                 z-index: 20;
@@ -156,16 +165,14 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/">
                 <img src="${pageContext.request.contextPath}/static/assets/money.ico" width="50" height="50" alt="">
                     Engineering Travel Expenses
             </a>
       
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
-                    </li>
+                     
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/employees">Employees</a>
                     </li>
@@ -177,6 +184,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/bills">Bills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/tripbills">Trip Bills</a>
                     </li>
 					<sec:authorize access="hasAuthority('admin')">
                     <li class="nav-item">
@@ -206,7 +216,9 @@
             <div class="row">
                 <div class="col-xl-12 col-lg-10 col-md-6 col-sm-6 container-fluid" id="divic">
     					<h4 style="color:green; text-align: center;">${message}</h4>
+    					<sec:authorize access="hasAuthority('admin')">
                         <button type="button" id="Add" class="btn btn-light" >Add New Location</button>
+                        </sec:authorize>
                         <div class="table-responsive">
                         <table id="example" class="table table-striped table-bordered" style=" height: 10%; background-color: white;">
                             <thead>
@@ -216,7 +228,8 @@
 			                        <th>Country</th> 
 			                        <th>Daily allowance</th>  
 			                          <th>Location distance</th>
-			                        <th>delete</th>                  
+			                        <th>action</th>
+			                        <th>action</th>                  
 			                    </tr>
 			                </thead>
 			                <tbody>
@@ -229,6 +242,8 @@
 			                            <td>${location.locdistance}</td>  
 			                            <td><a onclick="if(!(confirm('Are u sure u want to delete? '))) return false" href="${pageContext.request.contextPath}/deletelocation?locid=${location.locid}">Delete</a>
 			                            </td>
+			                            <td><a  href="${pageContext.request.contextPath}/updatelocation?locid=${location.locid}">Update</a>
+                            			</td>
 			                        </tr>
 			                    </c:forEach>
 			                </tbody>
@@ -266,6 +281,41 @@
                         <div class="col-sm-12">
                             <br/>
                             <button class="btn btn-success" type="submit" id="submit">Add</button>
+                            <input type="button" class="btn btn-danger" onclick="window.location.reload();" value="Cancel" />
+                        </div>
+                    </div>        
+                </form>
+                
+                <form id="formica1" action="${pageContext.request.contextPath}/doupdatelocation" method="post" onsubmit="return validateForma();">
+					<input name="locid" type="hidden"  value="${location.locid}" />
+                    <div class="form-group row">
+                        <label for="inputLocName" class="col-sm-5 col-form-label">Name: </label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="inputLocName" name="locname" value="${location.locname}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputCountry" class="col-sm-5 col-form-label">Country: </label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="inputCountry" name="loccountry" value="${location.loccountry}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputDailyAllowance" class="col-sm-5 col-form-label">Daily allowance: </label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="inputDailyAllowance" name="locdailyallowance" value="${location.locdailyallowance}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputLocDistance" class="col-sm-5 col-form-label">Location distance: </label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="inputLocDistance" name="locdistance" value="${location.locdistance}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <br/>
+                            <button class="btn btn-success" type="submit" id="submit">Update</button>
                             <input type="button" class="btn btn-danger" onclick="window.location.reload();" value="Cancel" />
                         </div>
                     </div>        

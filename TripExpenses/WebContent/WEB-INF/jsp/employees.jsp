@@ -60,7 +60,7 @@
                                 align-self: center;
                                 }
                                 #login {
-                                background-image: linear-gradient(to bottom, rgba(56, 204, 241, 1),rgba(56, 204, 241, 1),rgba(99,123,131,0.3));
+                                background-image: linear-gradient(to bottom, rgba(170, 170, 170, 1),rgba(170, 170, 170, 1),rgba(99,123,131,0.3));
                                 border-radius: 30px;
                                 width: 100%;
                                 z-index: 20;
@@ -71,17 +71,19 @@
                                 border: 3px solid #ffffffc9;
                                 display: none;
                                 }
+                                
                                 #p1 {
-                                font-family: roboto;
-                                font-size: 30px;
-                                font-style: italic;
-                                font-weight: bold;
-                                color: rgba(22, 22, 22, 0.74);
-                                }
-                                label {
-                                font-weight: bold;
-                                padding: 10px 0 0 10px;
-                                }
+		                        font-family: roboto;
+		                        font-size: 30px;
+		                        font-style: italic;
+		                        font-weight: bold;
+		                        color: rgba(247, 247, 247, 0.74);
+		                        }
+		                        label {
+		                        font-weight: bold;
+		                        color: white;
+		                        padding: 10px 0 0 10px;
+		                        }
                                 .navbar-brand {
                                 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
                                 }
@@ -107,27 +109,27 @@
                                 }
 
                                 #divic{
-                                background-image: linear-gradient(to bottom, rgba(56, 204, 241, 1),rgba(56, 204, 241, 0.5),rgba(99,123,131,0.3));
+                                background-image: linear-gradient(to bottom, rgba(170, 170, 170, 1),rgba(170, 170, 170, 0.5),rgba(99,123,131,0.3));
                                 margin-top: 2%;
                                 align-content: center;
                                 align-items: center;
                                 align-self: center;
                                 border-radius: 30px;
-                                /* display: none; */
+                                display: none;
                                 }
 
                                 .row{
                                 
                                 }
                                 .dataTables_length{
-
+                                display: none;
                                 }
                                 .container-fluid{
                                 }
         
                                 #formica{
                                 display: none;
-                                background-image: linear-gradient(to bottom, rgba(56, 204, 241, 1),rgba(56, 204, 241, 1),rgba(99,123,131,0.3));
+                                background-image: linear-gradient(to bottom, rgba(170, 170, 170, 1),rgba(170, 170, 170, 1),rgba(99,123,131,0.3));
                                 border-radius: 30px;
                                 width: 70%;
                                 z-index: 20;
@@ -159,16 +161,14 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/">
                 <img src="${pageContext.request.contextPath}/static/assets/money.ico" width="50" height="50" alt="">
                     Engineering Travel Expenses
             </a>
       
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
-                    </li>
+                     
                     <li class="nav-item active">
                         <a id="act" class="nav-link" href="#">Employees <span class="sr-only">(current)</span></a>
                     </li>
@@ -180,6 +180,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/bills">Bills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/tripbills">Trip Bills</a>
                     </li>
 					<sec:authorize access="hasAuthority('admin')">
                     <li class="nav-item">
@@ -211,7 +214,9 @@
             	
                 <div class="col-xl-12 col-lg-10 col-md-6 col-sm-6 container-fluid" id="divic">
 					<h4 style="color:green; text-align: center;">${message}</h4>
+						<sec:authorize access="hasAuthority('admin')">
                         <button type="button" id="Add" class="btn btn-light" >Add New Employee</button>
+                        </sec:authorize>
                         <div class="table-responsive">
                         <table id="example" class="table table-striped table-bordered" style=" height: 10%; background-color: white;">
                             <thead>

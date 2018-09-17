@@ -63,21 +63,6 @@ public class BillController {
 		return "bills";
 	}
 	
-	@RequestMapping("/addbill")
-	public String createBill(Model model) {
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = authentication.getName();
-		User user=userService.findByUsername(currentPrincipalName);
-		Long id=user.getUserid();
-		Employee employee=employeeService.findByID(id);
-		System.out.println(employee);
-		
-		List<Businesstrip> businesstrips = employee.getBusinesstrips();
-		System.out.println(businesstrips);
-		model.addAttribute("businesstrips", businesstrips);
-		return "addbill";
-	}
 
 	@RequestMapping(value = "/docreatebill", method = RequestMethod.POST)
 	public String doCreateBill(Model model, String billdate, Long bustripid, Bill bill,  BindingResult result) throws ParseException {

@@ -27,7 +27,7 @@
                                             <!-- Optional JavaScript -->
                                             <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
-                                            <title>Gallery</title>
+                                            <title>Travel Expenses</title>
                                             <style>
                                                 body {
                                                 background: url("${pageContext.request.contextPath}/static/assets/background2.jpg") no-repeat center center fixed;
@@ -42,7 +42,7 @@
                                                 margin-top: 8%;
                                                 }
                                                 #login {
-                                                background-image: linear-gradient(to bottom, rgba(56, 204, 241, 1),rgba(56, 204, 241, 1),rgba(99,123,131,0.3));
+                                                background-image: linear-gradient(to bottom, rgba(170, 170, 170, 1),rgba(170, 170, 170, 1),rgba(99,123,131,0.3));
                                                 border-radius: 30px;
                                                 width: 100%;
                                                 z-index: 20;
@@ -53,16 +53,18 @@
                                                 border: 3px solid #ffffffc9;
                                                 display: none;
                                                 }
-                                                #p1 {
-                                                font-family: roboto;
-                                                font-size: 30px;
-                                                font-style: italic;
-                                                font-weight: bold;
-                                                color: rgba(22, 22, 22, 0.74);
-                                                }
-                                                label {
-                                                font-weight: bold;
-                                                }
+                                                
+				                                #p1 {
+						                        font-family: roboto;
+						                        font-size: 30px;
+						                        font-style: italic;
+						                        font-weight: bold;
+						                        color: rgba(247, 247, 247, 0.74);
+						                        }
+						                        label {
+						                        font-weight: bold;
+						                        color: white;
+						                        }
                                                 .navbar-brand {
                                                 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
                                                 }
@@ -129,16 +131,14 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/">
                 <img src="${pageContext.request.contextPath}/static/assets/money.ico" width="50" height="50" alt="">
                     Engineering Travel Expenses
             </a>
       
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                     <li class="nav-item active">
-                        <a id="act" class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
+               
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/employees">Employees</a>
                     </li>
@@ -150,6 +150,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/bills">Bills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/tripbills">Trip Bills</a>
                     </li>
                     <sec:authorize access="hasAuthority('admin')">
                     <li class="nav-item">

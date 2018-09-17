@@ -60,7 +60,7 @@
                                 align-self: center;
                                 }
                                 #login {
-                                background-image: linear-gradient(to bottom, rgba(56, 204, 241, 1),rgba(56, 204, 241, 1),rgba(99,123,131,0.3));
+                                background-image: linear-gradient(to bottom, rgba(170, 170, 170, 1),rgba(170, 170, 170, 1),rgba(99,123,131,0.3));
                                 border-radius: 30px;
                                 width: 100%;
                                 z-index: 20;
@@ -72,16 +72,17 @@
                                 display: none;
                                 }
                                 #p1 {
-                                font-family: roboto;
-                                font-size: 30px;
-                                font-style: italic;
-                                font-weight: bold;
-                                color: rgba(22, 22, 22, 0.74);
-                                }
-                                label {
-                                font-weight: bold;
-                                padding: 10px 0 0 10px;
-                                }
+		                        font-family: roboto;
+		                        font-size: 30px;
+		                        font-style: italic;
+		                        font-weight: bold;
+		                        color: rgba(247, 247, 247, 0.74);
+		                        }
+		                        label {
+		                        font-weight: bold;
+		                        color: white;
+		                        padding: 10px 0 0 10px;
+		                        }
                                 .navbar-brand {
                                 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
                                 }
@@ -107,27 +108,27 @@
                                 }
 
                                 #divic{
-                                background-image: linear-gradient(to bottom, rgba(56, 204, 241, 1),rgba(56, 204, 241, 0.5),rgba(99,123,131,0.3));
+                                background-image: linear-gradient(to bottom, rgba(170, 170, 170, 1),rgba(170, 170, 170, 0.5),rgba(99,123,131,0.3));
                                 margin-top: 2%;
                                 align-content: center;
                                 align-items: center;
                                 align-self: center;
                                 border-radius: 30px;
-                                /* display: none; */
+                                display: none;
                                 }
 
                                 .row{
                                 
                                 }
                                 .dataTables_length{
-
+                                display: none;
                                 }
                                 .container-fluid{
                                 }
         
                                 #formica{
                                 display: none;
-                                background-image: linear-gradient(to bottom, rgba(56, 204, 241, 1),rgba(56, 204, 241, 1),rgba(99,123,131,0.3));
+                                background-image: linear-gradient(to bottom, rgba(170, 170, 170, 1),rgba(170, 170, 170, 1),rgba(99,123,131,0.3));
                                 border-radius: 30px;
                                 width: 70%;
                                 z-index: 20;
@@ -156,16 +157,14 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/">
                 <img src="${pageContext.request.contextPath}/static/assets/money.ico" width="50" height="50" alt="">
                     Engineering Travel Expenses
             </a>
       
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/employees">Employees</a>
                     </li>
@@ -178,7 +177,9 @@
                     <li class="nav-item">
                         <a id="act" class="nav-link" href="${pageContext.request.contextPath}/bills">Bills</a>
                     </li>
-
+					<li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/tripbills">Trip Bills</a>
+                    </li>
                     <li class="nav-item active">
                         <a id="act" class="nav-link" href="#">Admin Page  <span class="sr-only">(current)</span></a>
                     </li>
@@ -204,13 +205,13 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xl-12 col-lg-10 col-md-6 col-sm-6 container-fluid" id="divic">
-    
-                        <button type="button" id="Add" class="btn btn-light" >Add New Employee</button>
+    					<h4 style="color:green; text-align: center;">${message}</h4>
+                        <button type="button" id="Add" class="btn btn-light" >Create new user account</button>
                         <div class="table-responsive">
                         <table id="example" class="table table-striped table-bordered" style=" height: 10%; background-color: white;">
                             <thead>
 			                    <tr>
-			                        <th>userid</th>
+			                        <th>User Id</th>
 			                        <th>Username</th>  
 			                    </tr>
 			                </thead>
@@ -218,7 +219,7 @@
 			                    <c:forEach var="user" items="${users}">
 			                        <tr>
 			                            <td>${user.userid}</td>
-			                            <td>${user.username}</td>                        
+			                            <td>${user.username}</td>                    
 			                        </tr>
 			                    </c:forEach>
 			                </tbody>
@@ -226,30 +227,34 @@
                    </div>
                 </div>
 
-                <form id="formica" onsubmit="return validateForma();">
-
+                <form id="formica" action="${pageContext.request.contextPath}/docreateuser" method="post" onsubmit="return validateForma();">
                     <div class="form-group row">
-                        <label for="inputEmployeeID" class="col-sm-5 col-form-label">Employee ID: </label>
+                        <label for="inputEmployeeId" class="col-sm-5 col-form-label">Employee ID: </label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputEmployeeID" placeholder="Employee ID">
+                            <select class="form-control form-control-sm" name="employeeid" >
+								<c:forEach var="employee" items="${employees}">
+									<option value="${employee.employeeid}">${employee.fullname}</option>
+								</c:forEach>
+							</select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label for="inputUsername" class="col-sm-5 col-form-label">Username: </label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="inputUsername" name="username" placeholder="Username">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputName" class="col-sm-5 col-form-label">Name: </label>
+                        <label for="inputPassword" class="col-sm-5 col-form-label">Password: </label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputName" placeholder="Name">
+                            <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputEmail" class="col-sm-5 col-form-label">Email: </label>
+                        <label for="inputConfirmPassword" class="col-sm-5 col-form-label">Confirm Password: </label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputEmail" placeholder="Email">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inputPassportNumber" class="col-sm-5 col-form-label">Passport number: </label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputPassportNumber" placeholder="Passport number">
+                            <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Password">
                         </div>
                     </div>
                     <div class="form-group row">

@@ -39,8 +39,9 @@ public class TripBillController {
 		System.out.println(tripBill);
 		System.out.println("Trip Bill added successfully");
 		model.addAttribute("message", "Tripbill added succesfully!!!");
-		
-		return "addtripbill";
+		List<Tripbill> tripBills = tripBillService.findAll();
+		model.addAttribute("tripbills", tripBills);
+		return "tripbills";
 	}
 	
 	@RequestMapping(value = "/deletetripbill")

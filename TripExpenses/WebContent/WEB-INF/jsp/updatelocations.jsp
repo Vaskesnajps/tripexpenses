@@ -35,6 +35,11 @@
                                 $(".col-xl-12").hide();
                                 $("#formica").show();
                                 }   );
+                                
+                                $("#Update").click(function(event) {
+                                    $(".col-xl-12").hide();
+                                    $("#formica1").show();
+                                    }   );
 
                                 $('#example').DataTable({
                                 "pageLength": 5
@@ -107,7 +112,9 @@
                                 border-radius: 50px;
                                 border: 1px solid #d8d8d8c5;
                                 }
-
+								.dataTables_length{
+                                display: none;
+                                }
                                 #divic{
                                 background-image: linear-gradient(to bottom, rgba(170, 170, 170, 1),rgba(170, 170, 170, 0.5),rgba(99,123,131,0.3));
                                 margin-top: 2%;
@@ -122,19 +129,19 @@
                                 
                                 }
                                 .dataTables_length{
-                                display: none;
+
                                 }
                                 .container-fluid{
                                 }
         
-                                #formica{
-                                display: none;
-                                background-image: linear-gradient(to bottom, rgba(81, 81, 81, 1),rgba(81, 81, 81, 1),rgba(99,123,131,0.3));
+                                #formica1{
+                                background-image: linear-gradient(to bottom, rgba(170, 170, 170, 1),rgba(170, 170, 170, 1),rgba(99,123,131,0.3));
                                 border-radius: 30px;
                                 width: 70%;
                                 z-index: 20;
                                 top: 0; bottom: 0; left: 0; right: 0;
                                 margin: auto;
+                                margin-top: 2%;
                                 text-align: center;
                                 padding: 20px;
                                 border: 3px solid #ffffffc9;
@@ -169,14 +176,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/employees">Employees</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/locations">Locations</a>
+                    <li class="nav-item active">
+                        <a id="act" class="nav-link" href="#">Locations <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/businesstrips">Business Trips</a>
                     </li>
-                    <li class="nav-item active">
-                        <a id="act" class="nav-link" href="#">Bills  <span class="sr-only">(current)</span></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/bills">Bills</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/tripbills">Trip Bills</a>
@@ -203,94 +210,110 @@
 				                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }"> 
 					</form>
 				</sec:authorize>
-                <%-- <form class="form-inline my-2 my-lg-0" action="${logoutUrl}" method="post">
-                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Sign Out</button>
-                </form> --%>
             </div>
         </nav>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-xl-12 col-lg-10 col-md-6 col-sm-6 container-fluid" id="divic">
-    					<h4 style="color:green; text-align: center;">${message}</h4>
-    					<sec:authorize access="hasAuthority('admin')">
-                        <button type="button" id="Add" class="btn btn-light" >Add New Bill</button>
-                        </sec:authorize>
-                        <div class="table-responsive">
-                        <table id="example" class="table table-striped table-bordered" style=" height: 10%; background-color: white;">
-                            <thead>
-			                    <tr>
-			                        <th>ID</th>
-			                        <th>Bill Date</th>  
-			                        <th>Bill Item</th> 
-			                        <th>Price</th>
-			                        <th>Business trip</th>
-			                        <th>Action:</th>                  
-			                    </tr>
-			                </thead>
-			                <tbody>
-			                    <c:forEach var="bill" items="${bills}">
-			                        <tr>
-			                            <td>${bill.billid}</td>
-			                            <td>${bill.billitem}</td>                        
-			                            <td>${bill.price}</td>
-			                            <td>${bill.billdate}</td>  
-			                            <td>${bill.businesstrip}</td>  
-			                            
-			                            <td><sec:authorize access="hasAuthority('admin')">
-										<a onclick="if(!(confirm('Are u sure u want to delete? '))) return false" href="${pageContext.request.contextPath}/deletebill?billid=${bill.billid}">Delete</a>                      
-											</sec:authorize>
-			                            </td>
-			                        </tr>
-			                    </c:forEach>
-			                </tbody>
-                        </table>
-                   </div>
-                </div>
-
-                <form id="formica" action="${pageContext.request.contextPath}/docreatebill" method="post" onsubmit="return validateForma();">
-
+      					
+                <form id="formica1" action="${pageContext.request.contextPath}/doupdatelocation" method="post" onsubmit="return validateForma();">
+					<input name="locid" type="hidden"  value="${location.locid}" />
                     <div class="form-group row">
-                        <label for="inputBusinessTripId" class="col-sm-5 col-form-label">BusinessTrip ID: </label>
+                        <label for="inputLocName" class="col-sm-5 col-form-label">Name: </label>
                         <div class="col-sm-7">
-                            <select id="inputBusinessTripId" class="form-control form-control-sm" name="bustripid" >
-									<c:forEach var="busstrip" items="${businesstrips}">
-										<option value="${busstrip.bustripid}">${busstrip}</option>
-									</c:forEach>
-							</select>
+                            <input type="text" class="form-control" id="inputLocName" name="locname" value="${location.locname}">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputBillDate" class="col-sm-5 col-form-label">Bill Date: </label>
+                        <label for="inputCountry" class="col-sm-5 col-form-label">Country: </label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputBillDate" name="billdate" placeholder="Bill Date">
+                            <input type="text" class="form-control" id="inputCountry" name="loccountry" value="${location.loccountry}">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputItem" class="col-sm-5 col-form-label">Item: </label>
+                        <label for="inputDailyAllowance" class="col-sm-5 col-form-label">Daily allowance: </label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputItem" name="billitem" placeholder="Item Name">
+                            <input type="text" class="form-control" id="inputDailyAllowance" name="locdailyallowance" value="${location.locdailyallowance}">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputPrice" class="col-sm-5 col-form-label">Price: </label>
+                        <label for="inputLocDistance" class="col-sm-5 col-form-label">Location distance: </label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputPrice" name="price" placeholder="Price">
+                            <input type="text" class="form-control" id="inputLocDistance" name="locdistance" value="${location.locdistance}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12">
                             <br/>
-                            <button class="btn btn-success" type="submit" id="submit">Add</button>
-                            <input type="button" class="btn btn-danger" onclick="window.location.reload();" value="Cancel" />
+                            <button class="btn btn-success" type="submit" id="submit">Update</button>
+                            <input type="reset" class="btn btn-danger" value="Reset" />
                         </div>
                     </div>        
                 </form>
+            
             </div>
-            <!-- <footer id="foot">
+            <footer id="foot">
                 <p>
                     Engineering Software Lab® Copyright©2018
                 </p>
-            </footer> -->
+            </footer>
         </div>
     </body>
 </html>
+
+
+<%-- <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+  <%@taglib uri="http://www.springframework.org/tags/form" prefix="sf"%>
+  <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Update location</title>
+</head>
+<body>
+<form action="${pageContext.request.contextPath}/doupdatelocation" method="post">
+	<table class="formtable">
+	
+
+		<input name="locid" type="hidden"  value="${location.locid}" /> 
+
+		<tr>
+			<td class="label">Name: </td>
+			<td class="control">
+			<input  class="control" name="locname" value="${location.locname}" />
+			</td>
+			
+			
+		</tr>
+		<tr>
+			<td class="label">Country: </td>
+			<td class="control">
+			<input    name="loccountry"  value="${location.loccountry}" />
+			</td>
+		</tr>
+		<tr>
+			<td class="label">Daily allowance: </td>
+			<td class="control">
+			<input name="locdailyallowance" value="${location.locdailyallowance}" />
+			</td>
+		</tr>
+		<tr>
+			<td class="label">Loc distance: </td>
+			<td class="control">
+			<input name="locdistance"  value="${location.locdistance}" />
+			</td>
+		</tr>
+		<tr>
+			<td class="label"></td>
+			<td class="control"><input type="submit" value="Update location"></td>
+		</tr>
+		 
+	</table>
+	<!-- <input name="${_csrf.paramaterName }" type="hidden" value="${_csrf.token}}" /> -->
+	
+</form>
+</body>
+</html> --%>
