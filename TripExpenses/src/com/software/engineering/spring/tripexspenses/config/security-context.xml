@@ -49,8 +49,10 @@
 		
 		
 		<security:intercept-url pattern="/authorities" access="hasAuthority('admin')" />
-		
-			
+		<security:intercept-url pattern="/resources/assets/background2.jpg"   access="permitAll" />
+		<security:intercept-url pattern="/resources/assets/money_euro.png"   access="permitAll" />
+		<security:intercept-url pattern="/resources/alertify.js-0.3.11/*"   access="permitAll" />
+		<security:intercept-url pattern="/resources/*"   access="permitAll" />
 		<security:intercept-url pattern="/"   access="permitAll" />
 		<security:intercept-url pattern="/home"   access="permitAll" />
 		<security:intercept-url pattern="/error"   access="permitAll" />
@@ -61,7 +63,7 @@
 		<security:intercept-url pattern="/loggedout" access="permitAll" />
 		
 		<security:intercept-url pattern="/**" access="denyAll" />
-		<security:form-login login-page="/login"    />
+		<security:form-login login-page="/login"	 />
 		<security:logout logout-success-url="/loggedout"  />
 		<security:csrf disabled="true" />
 		

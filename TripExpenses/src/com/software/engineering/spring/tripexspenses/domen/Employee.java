@@ -1,4 +1,4 @@
-package com.software.engineering.spring.tripexspenses.domen;
+	package com.software.engineering.spring.tripexspenses.domen;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -34,12 +34,13 @@ public class Employee implements Serializable {
 	private BigDecimal persidnum;
 
 	//bi-directional many-to-one association to Businesstrip
-	@OneToMany(mappedBy="employee")
+	@OneToMany(mappedBy="employee", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Businesstrip> businesstrips;
 
 	//bi-directional many-to-one association to User
-	@OneToMany(mappedBy="employeeid")
-	private List<User> users;
+	@OneToOne(mappedBy = "employeeid", cascade = CascadeType.ALL, 
+            fetch = FetchType.EAGER, optional = true)
+	private User users;
 
 	public Employee() {
 	}
@@ -114,11 +115,11 @@ public class Employee implements Serializable {
 		return businesstrip;
 	}
 
-	public List<User> getUsers() {
-		return this.users;
+	public User getUsers() {
+		return users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(User users) {
 		this.users = users;
 	}
 

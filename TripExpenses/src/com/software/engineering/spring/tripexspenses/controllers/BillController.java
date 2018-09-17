@@ -50,17 +50,28 @@ public class BillController {
 	public String showLocations(Model model) {
 		List<Bill> bills = billService.findAll();
 		model.addAttribute("bills", bills);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		User user1=userService.findByUsername(currentPrincipalName);
+		Long id1=user1.getUserid();
+		Employee employee1=employeeService.findByID(id1);
+		System.out.println(employee1);
+		
+		List<Businesstrip> businesstrips = employee1.getBusinesstrips();
+		System.out.println(businesstrips);
+		model.addAttribute("businesstrips", businesstrips);
 		return "bills";
 	}
 	
 	@RequestMapping("/addbill")
 	public String createBill(Model model) {
+		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = authentication.getName();
 		User user=userService.findByUsername(currentPrincipalName);
 		Long id=user.getUserid();
 		Employee employee=employeeService.findByID(id);
-		
+		System.out.println(employee);
 		
 		List<Businesstrip> businesstrips = employee.getBusinesstrips();
 		System.out.println(businesstrips);
@@ -128,8 +139,8 @@ public class BillController {
 	}
 	
 	@RequestMapping(value = "/deletebill")
-	public String delete(Model model, Long billId) {
-		billService.delete(billId);
+	public String delete(Model model, Long billid) {
+		billService.delete(billid);
 		List<Bill> bills = billService.findAll();
 		model.addAttribute("bills", bills);
 		return "bills";

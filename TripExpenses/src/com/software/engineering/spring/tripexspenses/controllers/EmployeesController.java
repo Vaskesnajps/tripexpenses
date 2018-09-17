@@ -35,8 +35,9 @@ public class EmployeesController {
 		System.out.println(employee);
 		System.out.println("employee added successfully");
 		model.addAttribute("message","Employee added succesfully!!!");
-		
-		return "addemployee";
+		List<Employee> employees=employeeService.findAll();
+		model.addAttribute("employees",employees);
+		return "employees";
 
 	}
 	@RequestMapping("/deleteemployee")

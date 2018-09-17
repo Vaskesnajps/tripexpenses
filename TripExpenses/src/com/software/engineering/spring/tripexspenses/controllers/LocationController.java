@@ -43,8 +43,9 @@ public class LocationController {
 		System.out.println(location);
 		System.out.println("location added successfully");
 		model.addAttribute("message","Location added succesfully!!!");
-		
-		return "addlocation";
+		List<Location> locations=locationService.findAll();
+		model.addAttribute("locations",locations);
+		return "locations";
 
 	}
 

@@ -48,6 +48,8 @@ public class BusinessTripController {
 	public String showLocations(Model model) {
 		List<Businesstrip> businessTrips =businessTripService.findAll();
 		model.addAttribute("businesstrips",businessTrips);
+		List<Location> locations = locationService.findAll();
+		model.addAttribute("locations", locations);
 		return "businesstrips";
 	}
 	
@@ -96,8 +98,9 @@ public class BusinessTripController {
 		
 		System.out.println("Business trip added successfully");
 		model.addAttribute("message", "Business trip added succesfully!!!");
-		
-		return "addbusinesstrip";
+		List<Businesstrip> businessTrips =businessTripService.findAll();
+		model.addAttribute("businesstrips",businessTrips);
+		return "businesstrips";
 	}
 	
 	@RequestMapping("/deletebusinesstrip")
