@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,10 +19,12 @@ import com.software.engineering.spring.tripexspenses.domen.Businesstrip;
 import com.software.engineering.spring.tripexspenses.domen.Employee;
 import com.software.engineering.spring.tripexspenses.domen.Location;
 import com.software.engineering.spring.tripexspenses.domen.Tripbill;
+import com.software.engineering.spring.tripexspenses.domen.User;
 import com.software.engineering.spring.tripexspenses.service.BusinessTripService;
 import com.software.engineering.spring.tripexspenses.service.EmployeesService;
 import com.software.engineering.spring.tripexspenses.service.LocationService;
 import com.software.engineering.spring.tripexspenses.service.TripBillService;
+import com.software.engineering.spring.tripexspenses.service.UserService;
 
 @Controller
 public class BusinessTripController {
@@ -35,6 +40,9 @@ public class BusinessTripController {
 	
 	@Autowired
 	private TripBillService tripBillService;
+	
+	@Autowired
+	UserService userService;
 	
 	@RequestMapping("/businesstrips")
 	public String showLocations(Model model) {
@@ -55,9 +63,13 @@ public class BusinessTripController {
 	}
 
 	@RequestMapping(value = "/docreatebusinesstrip", method = RequestMethod.POST)
-	public String doCreateBusinesstrip (Model model,String fromdate, String todate, Long locid,Long employeeid, Businesstrip businessTrip,  BindingResult result)throws Exception {
-
-		Employee employee=employeeService.findByID(employeeid);
+	public String doCreateBusinesstrip (Model model,String fromdate, String todate, Long locid, Businesstrip businessTrip,  BindingResult result)throws Exception {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		User user=userService.findByUsername(currentPrincipalName);
+		Long id=user.getUserid();
+		Employee employee=employeeService.findByID(id);
 		Location location=locationService.findByID(locid);
 		businessTrip.setEmployee(employee);
 		businessTrip.setLocation(location);

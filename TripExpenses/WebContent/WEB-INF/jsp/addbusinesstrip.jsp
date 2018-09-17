@@ -33,18 +33,7 @@
 				</select>
 				</td>
 			</tr>
-			<tr>
-				<td class="label">Employee</td>
-				<td>
-				
-				<select class="control" name="employeeid" >
-
-						<c:forEach var="employee" items="${employees}">
-							<option value="${employee.employeeid}">${employee.fullname}</option>
-						</c:forEach>
-				</select>
-				</td>
-			</tr>
+			
 		<tr>
 			<td class="label"></td>
 			<td class="control"><input type="submit" value="Create new business trip"></td>

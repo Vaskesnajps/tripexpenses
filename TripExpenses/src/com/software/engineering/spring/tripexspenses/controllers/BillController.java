@@ -11,6 +11,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,10 +21,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.software.engineering.spring.tripexspenses.domen.Bill;
 import com.software.engineering.spring.tripexspenses.domen.Businesstrip;
+import com.software.engineering.spring.tripexspenses.domen.Employee;
 import com.software.engineering.spring.tripexspenses.domen.Tripbill;
+import com.software.engineering.spring.tripexspenses.domen.User;
 import com.software.engineering.spring.tripexspenses.service.BillService;
 import com.software.engineering.spring.tripexspenses.service.BusinessTripService;
+import com.software.engineering.spring.tripexspenses.service.EmployeesService;
 import com.software.engineering.spring.tripexspenses.service.TripBillService;
+import com.software.engineering.spring.tripexspenses.service.UserService;
 
 @Controller
 public class BillController {
@@ -35,6 +41,10 @@ public class BillController {
 	
 	@Autowired
 	private TripBillService tripBillService;
+	@Autowired
+	UserService userService;
+	@Autowired
+	private EmployeesService employeeService;
 	
 	@RequestMapping("/bills")
 	public String showLocations(Model model) {
@@ -45,7 +55,15 @@ public class BillController {
 	
 	@RequestMapping("/addbill")
 	public String createBill(Model model) {
-		List<Businesstrip> businesstrips = businessTripService.findAll();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		User user=userService.findByUsername(currentPrincipalName);
+		Long id=user.getUserid();
+		Employee employee=employeeService.findByID(id);
+		
+		
+		List<Businesstrip> businesstrips = employee.getBusinesstrips();
+		System.out.println(businesstrips);
 		model.addAttribute("businesstrips", businesstrips);
 		return "addbill";
 	}
