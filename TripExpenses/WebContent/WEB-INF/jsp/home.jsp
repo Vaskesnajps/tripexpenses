@@ -1,3 +1,4 @@
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -44,7 +45,7 @@
 	<sec:authorize access="isAuthenticated()">
 	<c:url var="logoutUrl" value="logout" />
 	<form action="${logoutUrl}" method="post">
-	<input type="submit" class="btn btn-info"   value="logout">
+	<input type="submit" class="btn btn-info"   value="logout"> Logged in as <security:authentication property="principal.username" /> 
                    
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }"> 
 </form>
