@@ -276,10 +276,13 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputHasLicence" class="col-sm-5 col-form-label">Has B licence: </label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputPassportNumber" name="haslicence" placeholder="0 - no, 1 - yes">
-                        </div>
+                    <label for="inputPassportNumber" class="col-sm-5 col-form-label">Has car licence?</label>
+                    <div class="col-sm-7">
+                         <select  name="haslicence" class="form-control form-control-sm ">
+                        <option selected="selected">[Choose option] </option>
+  <option value="1">Yes </option>
+  <option value="0">No</option>
+</select></div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12">
