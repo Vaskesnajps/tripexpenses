@@ -189,8 +189,8 @@
                             }
                             function check_name() {
                                 var regExName = /^[A-Z][a-z]+(\s[A-Z][a-z]+)*$/;
-                                if(!regExUsername.test(document.getElementById('inputName').value)) {
-                                    error.innerHTML = "Username should be atleast 5 characters long!";
+                                if(!regExName.test(document.getElementById('inputName').value)) {
+                                    error.innerHTML = "Please enter name in correct format!";
                                     return false;
                                 } else {
                                     document.getElementById('error').innerHTML = "";
@@ -198,25 +198,38 @@
                                 };
                             }
                             function check_password() {
-                                var x = document.getElementById('inputPassword');
-                                var regExUsername = /^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$/;
-                                if(!regExUsername.test(x.value)) {
-                                    error1.innerHTML = "Password must contain at least one letter, at least one number, and be longer than six characters!";
+                                var x = document.getElementById('inputEmail');
+                                var regExEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                if(!regExEmail.test(x.value)) {
+                                    error1.innerHTML = "Please enter email in correct format!";
                                     return false;
                                 } else {
                                     document.getElementById('error1').innerHTML = "";
                                     return true;
                                 };
                             }
-                            function check_confirm() {
-                                var x = document.getElementById('inputConfirmPassword');
-                                if(x.value != document.getElementById('inputPassword').value) {
-                                    error2.innerHTML = "Passwords don't match!"
+                            function check_persid() {
+                                var x = document.getElementById('inputPersId');
+                                var regExPersId = /^[0-9]{13}$/;
+                                if(!regExPersId.test(x.value)) {
+                                    error1.innerHTML = "Please enter personal id in correct format!";
                                     return false;
                                 } else {
-                                    document.getElementById('error2').innerHTML = "";
+                                    document.getElementById('error1').innerHTML = "";
                                     return true;
-                                };    
+                                };
+                                function check_passnum() {
+                                    var x = document.getElementById('inputPassportNumber');
+                                    var regExPassportNumber = /^[0-9]{9}$/;
+                                    if(!regExPassportNumber.test(x.value)) {
+                                        error1.innerHTML = "Please enter passport number in correct format!";
+                                        return false;
+                                    } else {
+                                        document.getElementById('error1').innerHTML = "";
+                                        return true;
+                                    };
+                            }
+                             
                             }
                             </script>
     </head>
