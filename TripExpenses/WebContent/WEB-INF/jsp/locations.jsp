@@ -240,10 +240,10 @@
 			                            <td>${location.loccountry}</td>
 			                            <td>${location.locdailyallowance}</td>  
 			                            <td>${location.locdistance}</td>  
-			                            <td><a onclick="if(!(confirm('Are u sure u want to delete? '))) return false" href="${pageContext.request.contextPath}/deletelocation?locid=${location.locid}">Delete</a>
-			                            </td>
-			                            <td><a  href="${pageContext.request.contextPath}/updatelocation?locid=${location.locid}">Update</a>
-                            			</td>
+			                            <td> <sec:authorize access="hasAuthority('admin')"><a onclick="if(!(confirm('Are u sure u want to delete? '))) return false" href="${pageContext.request.contextPath}/deletelocation?locid=${location.locid}">Delete</a>
+			                           </sec:authorize> </td>
+			                            <td><sec:authorize access="hasAuthority('admin')"><a  href="${pageContext.request.contextPath}/updatelocation?locid=${location.locid}">Update</a>
+                            			</sec:authorize></td>
 			                        </tr>
 			                    </c:forEach>
 			                </tbody>

@@ -212,9 +212,9 @@
             <div class="row">
                 <div class="col-xl-12 col-lg-10 col-md-6 col-sm-6 container-fluid" id="divic">
     					<h4 style="color:green; text-align: center;">${message}</h4>
-    					<sec:authorize access="hasAuthority('admin')">
+    					
                         <button type="button" id="Add" class="btn btn-light" >Add New Bill</button>
-                        </sec:authorize>
+                       
                         <div class="table-responsive">
                         <table id="example" class="table table-striped table-bordered" style=" height: 10%; background-color: white;">
                             <thead>
@@ -236,9 +236,9 @@
 			                            <td>${bill.billdate}</td>  
 			                            <td>${bill.businesstrip}</td>  
 			                            
-			                            <td><sec:authorize access="hasAuthority('admin')">
+			                            <td>
 										<a onclick="if(!(confirm('Are u sure u want to delete? '))) return false" href="${pageContext.request.contextPath}/deletebill?billid=${bill.billid}">Delete</a>                      
-											</sec:authorize>
+											
 			                            </td>
 			                        </tr>
 			                    </c:forEach>

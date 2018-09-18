@@ -14,7 +14,11 @@
                 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/assets/money_euro.png" />
                 <!-- Bootstrap CSS -->
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-
+					<script src="${pageContext.request.contextPath}/static/alertify.js-0.3.11/lib/alertify.min.js"></script>
+                    <!-- include the core styles -->
+                    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/alertify.js-0.3.11/themes/alertify.core.css" />
+                    <!-- include a theme, can be included into the core instead of 2 separate files -->
+                    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/alertify.js-0.3.11/themes/alertify.default.css" />
                     <!-- Optional JavaScript -->
                     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
                     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -147,9 +151,61 @@
                                 #lg { 
                                  	font-size: 0.75em;
                                  }
+                                 .error {
+						            color: red;
+						        }
                             </style>
-                            <script>
-
+                            <script lang="JavaScript">
+                            function validateForma() {
+                                if (document.getElementById('inputUsername').value == "") {
+                                    alertify.alert("All fields must be filled!");
+                                    document.getElementById('inputUsername').focus();
+                                    return false;
+                                } else if (document.getElementById('inputPassword').value == "") {
+                                    alertify.alert("All fields must be filled!");
+                                    document.getElementById('inputPassword').focus();
+                                    return false;
+                                } else if (document.getElementById('inputConfirmPassword').value == "") {
+                                    alertify.alert("All fields must be filled!");
+                                    document.getElementById('inputConfirmPassword').focus();
+                                    return false;
+                                } else if (check_username() && check_password() && check_confirm()) {
+                                    return true;
+                                } else {
+                                    return false;
+                                }  
+                            }
+                            function check_username() {
+                                var regExUsername = /^[a-zA-Z0-9.\-_]{5,30}$/;
+                                if(!regExUsername.test(document.getElementById('inputUsername').value)) {
+                                    error.innerHTML = "Username should be atleast 5 characters long!";
+                                    return false;
+                                } else {
+                                    document.getElementById('error').innerHTML = "";
+                                    return true;
+                                };
+                            }
+                            function check_password() {
+                                var x = document.getElementById('inputPassword');
+                                var regExUsername = /^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$/;
+                                if(!regExUsername.test(x.value)) {
+                                    error1.innerHTML = "Password must contain at least one letter, at least one number, and be longer than six characters!";
+                                    return false;
+                                } else {
+                                    document.getElementById('error1').innerHTML = "";
+                                    return true;
+                                };
+                            }
+                            function check_confirm() {
+                                var x = document.getElementById('inputConfirmPassword');
+                                if(x.value != document.getElementById('inputPassword').value) {
+                                    error2.innerHTML = "Passwords don't match!"
+                                    return false;
+                                } else {
+                                    document.getElementById('error2').innerHTML = "";
+                                    return true;
+                                };    
+                            }
                             </script>
     </head>
     <body>
@@ -242,20 +298,23 @@
                     <div class="form-group row">
                         <label for="inputUsername" class="col-sm-5 col-form-label">Username: </label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputUsername" name="username" placeholder="Username">
+                            <input type="text" class="form-control" id="inputUsername" name="username" placeholder="Username" onblur="check_username();">
                         </div>
+                        <div id="error" class="error"></div>
                     </div>
                     <div class="form-group row">
                         <label for="inputPassword" class="col-sm-5 col-form-label">Password: </label>
                         <div class="col-sm-7">
-                            <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password">
+                            <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password" onblur="check_password();">
                         </div>
+                        <div id="error1" class="error"></div>
                     </div>
                     <div class="form-group row">
                         <label for="inputConfirmPassword" class="col-sm-5 col-form-label">Confirm Password: </label>
                         <div class="col-sm-7">
-                            <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Password">
+                            <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Password" onkeyup="check_confirm();">
                         </div>
+                        <div id="error2" class="error"></div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12">

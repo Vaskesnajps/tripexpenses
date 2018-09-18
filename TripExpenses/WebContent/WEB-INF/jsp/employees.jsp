@@ -152,8 +152,72 @@
                                  	background: rgba(100,1,1,0.01);
                                  }
                             </style>
-                            <script>
-
+                            <script lang="JavaScript">
+                            function validateFormaEmployee() {
+                                if (document.getElementById('inputName').value == "") {
+                                    alertify.alert("All fields must be filled!");
+                                    document.getElementById('inputName').focus();
+                                    return false;
+                                } else if (document.getElementById('inputEmail').value == "") {
+                                    alertify.alert("All fields must be filled!");
+                                    document.getElementById('inputEmail').focus();
+                                    return false;
+                                } else if (document.getElementById('inputPersId').value == "") {
+                                    alertify.alert("All fields must be filled!");
+                                    document.getElementById('inputPersId').focus();
+                                    return false;
+                              
+                                } else if (document.getElementById('inputPassportNumber').value == "") {
+                                    alertify.alert("All fields must be filled!");
+                                    document.getElementById('inputPassportNumber').focus();
+                                    return false;
+                              
+                                }else if (document.getElementById('inputPassportNumber').value == "") {
+                                    alertify.alert("All fields must be filled!");
+                                    document.getElementById('inputPassportNumber').focus();
+                                    return false;
+                              
+                                }else if (document.getElementById('inputHasLicence').value == "") {
+                                    alertify.alert("All fields must be filled!");
+                                    document.getElementById('inputHasLicence').focus();
+                                    return false;
+                              
+                                }
+                                else {
+                                    return false;
+                                }  
+                            }
+                            function check_name() {
+                                var regExName = /^[A-Z][a-z]+(\s[A-Z][a-z]+)*$/;
+                                if(!regExUsername.test(document.getElementById('inputName').value)) {
+                                    error.innerHTML = "Username should be atleast 5 characters long!";
+                                    return false;
+                                } else {
+                                    document.getElementById('error').innerHTML = "";
+                                    return true;
+                                };
+                            }
+                            function check_password() {
+                                var x = document.getElementById('inputPassword');
+                                var regExUsername = /^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$/;
+                                if(!regExUsername.test(x.value)) {
+                                    error1.innerHTML = "Password must contain at least one letter, at least one number, and be longer than six characters!";
+                                    return false;
+                                } else {
+                                    document.getElementById('error1').innerHTML = "";
+                                    return true;
+                                };
+                            }
+                            function check_confirm() {
+                                var x = document.getElementById('inputConfirmPassword');
+                                if(x.value != document.getElementById('inputPassword').value) {
+                                    error2.innerHTML = "Passwords don't match!"
+                                    return false;
+                                } else {
+                                    document.getElementById('error2').innerHTML = "";
+                                    return true;
+                                };    
+                            }
                             </script>
     </head>
     <body>
@@ -239,8 +303,8 @@
 			                            <td>${employee.persidnum}</td>  
 			                            <td>${employee.passnum}</td>  
 			                            <td>${employee.haslicence}</td>    
-			                            <td><a onclick="if(!(confirm('Are u sure u want to delete? '))) return false" href="${pageContext.request.contextPath}/deleteemployee?employeeid=${employee.employeeid}">Delete</a>
-			                            </td>
+			                            <td><sec:authorize access="hasAuthority('admin')"><a onclick="if(!(confirm('Are u sure u want to delete? '))) return false" href="${pageContext.request.contextPath}/deleteemployee?employeeid=${employee.employeeid}">Delete</a>
+			                            </sec:authorize></td>
 			                            
 			                        </tr>
                     			</c:forEach>
@@ -249,7 +313,7 @@
                    </div>
                 </div>
 
-                <form id="formica" action="${pageContext.request.contextPath}/docreateemployee" method="post" onsubmit="return validateForma();">
+                <form id="formica" action="${pageContext.request.contextPath}/docreateemployee" method="post" onsubmit="return  validateFormaEmployee();">
 
                     <div class="form-group row">
                         <label for="inputName" class="col-sm-5 col-form-label">Name: </label>
@@ -276,9 +340,9 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                    <label for="inputPassportNumber" class="col-sm-5 col-form-label">Has car licence?</label>
+                    <label for="inputHasLicence" class="col-sm-5 col-form-label">Has car licence?</label>
                     <div class="col-sm-7">
-                         <select  name="haslicence" class="form-control form-control-sm ">
+                         <select  name="haslicence" id="inputHasLicence" class="form-control form-control-sm ">
                         <option selected="selected">[Choose option] </option>
   <option value="1">Yes </option>
   <option value="0">No</option>

@@ -210,9 +210,9 @@
             <div class="row">
                 <div class="col-xl-12 col-lg-10 col-md-6 col-sm-6 container-fluid" id="divic">
     					<h4 style="color:green; text-align: center;">${message}</h4>
-    					<sec:authorize access="hasAuthority('admin')">
+    					
                         <button type="button" id="Add" class="btn btn-light" >Add New Business Trip</button>
-                        </sec:authorize>
+                       
                         <div class="table-responsive">
                         <table id="example" class="table table-striped table-bordered" style=" height: 10%; background-color: white;">
                             <thead>
