@@ -14,7 +14,11 @@
                 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/assets/money_euro.png" />
                 <!-- Bootstrap CSS -->
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-
+<script src="${pageContext.request.contextPath}/static/alertify.js-0.3.11/lib/alertify.min.js"></script>
+                    <!-- include the core styles -->
+                    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/alertify.js-0.3.11/themes/alertify.core.css" />
+                    <!-- include a theme, can be included into the core instead of 2 separate files -->
+                    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/alertify.js-0.3.11/themes/alertify.default.css" />
                     <!-- Optional JavaScript -->
                     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
                     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -151,6 +155,9 @@
                                  #mess {
                                  	background: rgba(100,1,1,0.01);
                                  }
+                                  .error {
+						            color: red;
+						        }
                             </style>
                             <script lang="JavaScript">
                             function validateFormaEmployee() {
@@ -172,16 +179,14 @@
                                     document.getElementById('inputPassportNumber').focus();
                                     return false;
                               
-                                }else if (document.getElementById('inputPassportNumber').value == "") {
-                                    alertify.alert("All fields must be filled!");
-                                    document.getElementById('inputPassportNumber').focus();
-                                    return false;
-                              
-                                }else if (document.getElementById('inputHasLicence').value == "") {
+                                                              
+                                }else if (document.getElementById('inputHasLicence').value == "3") {
                                     alertify.alert("All fields must be filled!");
                                     document.getElementById('inputHasLicence').focus();
                                     return false;
                               
+                                } else if (check_name() && check_email() && check_persid() && check_passnum() ) {
+                                	return true;
                                 }
                                 else {
                                     return false;
@@ -197,7 +202,7 @@
                                     return true;
                                 };
                             }
-                            function check_password() {
+                            function check_email() {
                                 var x = document.getElementById('inputEmail');
                                 var regExEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                                 if(!regExEmail.test(x.value)) {
@@ -212,25 +217,26 @@
                                 var x = document.getElementById('inputPersId');
                                 var regExPersId = /^[0-9]{13}$/;
                                 if(!regExPersId.test(x.value)) {
-                                    error1.innerHTML = "Please enter personal id in correct format!";
+                                    error2.innerHTML = "Please enter personal id in correct format- 13 numbers!";
                                     return false;
                                 } else {
-                                    document.getElementById('error1').innerHTML = "";
+                                    document.getElementById('error2').innerHTML = "";
                                     return true;
                                 };
+                            }
                                 function check_passnum() {
                                     var x = document.getElementById('inputPassportNumber');
                                     var regExPassportNumber = /^[0-9]{9}$/;
                                     if(!regExPassportNumber.test(x.value)) {
-                                        error1.innerHTML = "Please enter passport number in correct format!";
+                                        error3.innerHTML = "Please enter passport number in correct format - 9 numbers!";
                                         return false;
                                     } else {
-                                        document.getElementById('error1').innerHTML = "";
+                                        document.getElementById('error3').innerHTML = "";
                                         return true;
                                     };
                             }
                              
-                            }
+                            
                             </script>
     </head>
     <body>
@@ -326,37 +332,41 @@
                    </div>
                 </div>
 
-                <form id="formica" action="${pageContext.request.contextPath}/docreateemployee" method="post" onsubmit="return  validateFormaEmployee();">
+                <form id="formica" action="${pageContext.request.contextPath}/docreateemployee" method="post" onsubmit="return validateFormaEmployee();">
 
                     <div class="form-group row">
                         <label for="inputName" class="col-sm-5 col-form-label">Name: </label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputName" name="fullname" placeholder="Full name">
+                            <input type="text" class="form-control" id="inputName" name="fullname" placeholder="Full name" onblur="check_name();">
+                             <div id="error" class="error"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputEmail" class="col-sm-5 col-form-label">Email: </label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputEmail" name="email" placeholder="Email">
+                            <input type="text" class="form-control" id="inputEmail" name="email" placeholder="Email" onblur="check_email();">
+                         <div id="error1" class="error"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputPersId" class="col-sm-5 col-form-label">Personal ID number: </label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputPersId" name="persidnum" placeholder="Personal ID">
-                        </div>
+                            <input type="text" class="form-control" id="inputPersId" name="persidnum" placeholder="Personal ID" onblur="check_persid();">
+                         <div id="error2" class="error"></div>
+                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputPassportNumber" class="col-sm-5 col-form-label">Passport number: </label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputPassportNumber" name="passnum" placeholder="Passport number">
+                            <input type="text" class="form-control" id="inputPassportNumber" name="passnum" placeholder="Passport number" onblur="check_passnum();">
+                         <div id="error3" class="error"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                     <label for="inputHasLicence" class="col-sm-5 col-form-label">Has car licence?</label>
                     <div class="col-sm-7">
                          <select  name="haslicence" id="inputHasLicence" class="form-control form-control-sm ">
-                        <option selected="selected">[Choose option] </option>
+                        <option value="3" selected="selected">[Choose option] </option>
   <option value="1">Yes </option>
   <option value="0">No</option>
 </select></div>
