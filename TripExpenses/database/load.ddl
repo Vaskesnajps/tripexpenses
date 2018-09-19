@@ -11,9 +11,7 @@ drop sequence user_seq;
        
  
 
-insert into employees values(0,'Stefan Vasic','stefan.vasic1987@gmail',123343232,32233,1);
-insert into users values('StefanV87','admin',1,0,0);
-insert into authorities values('admin',0,'StefanV87');
+
 
  CREATE SEQUENCE authorities_seq
   minvalue 1
@@ -68,3 +66,6 @@ nocache
  INCREMENT BY   1
 nocache
  NOCYCLE;
+  insert into employees values(employees_seq.nextval,'Stefan Vasic','stefan.vasic1987@gmail',123343232,32233,1);
+insert into users values('StefanV87','admin',1,1,user_seq.nextval);
+insert into authorities values('admin',authorities_seq.nextval,'StefanV87');

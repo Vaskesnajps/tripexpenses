@@ -1,7 +1,7 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -14,7 +14,11 @@
                 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/assets/money_euro.png" />
                 <!-- Bootstrap CSS -->
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-
+					<script src="${pageContext.request.contextPath}/static/alertify.js-0.3.11/lib/alertify.min.js"></script>
+                    <!-- include the core styles -->
+                    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/alertify.js-0.3.11/themes/alertify.core.css" />
+                    <!-- include a theme, can be included into the core instead of 2 separate files -->
+                    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/alertify.js-0.3.11/themes/alertify.default.css" />
                     <!-- Optional JavaScript -->
                     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
                     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -30,7 +34,6 @@
     
                             <script>
                                 $(document).ready(function() {
-
                                 $("#Add").click(function(event) {
                                 $(".col-xl-12").hide();
                                 $("#formica").show();
@@ -40,7 +43,6 @@
                                     $(".col-xl-12").hide();
                                     $("#formica1").show();
                                     }   );
-
                                 $('#example').DataTable({
                                 "pageLength": 5
                                 });
@@ -124,12 +126,10 @@
                                 border-radius: 30px;
                                 display: none;
                                 }
-
                                 .row{
                                 
                                 }
                                 .dataTables_length{
-
                                 }
                                 .container-fluid{
                                 }
@@ -155,9 +155,75 @@
                                 #lg { 
                                  	font-size: 0.75em;
                                  }
+                                 .error {
+                                 color: red;
+                                 }
                             </style>
-                            <script>
-
+                            <script lang="JavaScript">
+                            function validateForma() {
+                                if (document.getElementById('inputLocName').value == "") {
+                                    alertify.alert("All fields must be filled!");
+                                    document.getElementById('inputLocName').focus();
+                                    return false;
+                                } else if (document.getElementById('inputCountry').value == "") {
+                                    alertify.alert("All fields must be filled!");
+                                    document.getElementById('inputCountry').focus();
+                                    return false;
+                                } else if (document.getElementById('inputDailyAllowance').value == "") {
+                                    alertify.alert("All fields must be filled!");
+                                    document.getElementById('inputDailyAllowance').focus();
+                                    return false;
+                                } else if (document.getElementById('inputLocDistance').value == "") {
+                                    alertify.alert("All fields must be filled!");
+                                    document.getElementById('inputLocDistance').focus();
+                                    return false;
+                                } else if (check_locname() && check_country() && check_allowance() && check_distance()) {
+                                    return true;
+                                } else {
+                                    return false;
+                                }  
+                            }
+                            function check_locname() {
+                                var regExLocName =  /^[A-Z][a-z]+(\s[A-Z][a-z]+)*$/;
+                                if(!regExLocName.test(document.getElementById('inputLocName').value)) {
+                                	error.innerHTML = "dud!";
+                                    error.innerHTML = "Name should only contain letters!";
+                                    return false;
+                                } else {
+                                    document.getElementById('error').innerHTML = "";
+                                    return true;
+                                };
+                            }
+                            function check_country() {
+                                var regExLocName =  /^[A-Z][a-z]+(\s[A-Z][a-z]+)*$/;
+                                if(!regExLocName.test(document.getElementById('inputCountry').value)) {
+                                    error1.innerHTML = "Country name should only contain letters!";
+                                    return false;
+                                } else {
+                                    document.getElementById('error1').innerHTML = "";
+                                    return true;
+                                };
+                            }
+                            function check_allowance() {
+                                var regExLocName = /^[1-9][0-9]{0,7}$/;
+                                if(!regExLocName.test(document.getElementById('inputDailyAllowance').value)) {
+                                    error2.innerHTML = "Allowance should only contain numbers!";
+                                    return false;
+                                } else {
+                                    document.getElementById('error2').innerHTML = "";
+                                    return true;
+                                };
+                            }
+                            function check_distance() {
+                                var regExLocName = /^[0-9]{1,4}$/;
+                                if(!regExLocName.test(document.getElementById('inputLocDistance').value)) {
+                                    error3.innerHTML = "Distance should only contain numbers!";
+                                    return false;
+                                } else {
+                                    document.getElementById('error3').innerHTML = "";
+                                    return true;
+                                };
+                            }
                             </script>
     </head>
     <body>
@@ -228,8 +294,8 @@
 			                        <th>Country</th> 
 			                        <th>Daily allowance</th>  
 			                          <th>Location distance</th>
-			                        <th>action</th>
-			                        <th>action</th>                  
+			                        <th>action 1</th>
+			                        <th>action 2</th>                  
 			                    </tr>
 			                </thead>
 			                <tbody>
@@ -240,10 +306,10 @@
 			                            <td>${location.loccountry}</td>
 			                            <td>${location.locdailyallowance}</td>  
 			                            <td>${location.locdistance}</td>  
-			                            <td> <sec:authorize access="hasAuthority('admin')"><a onclick="if(!(confirm('Are u sure u want to delete? '))) return false" href="${pageContext.request.contextPath}/deletelocation?locid=${location.locid}">Delete</a>
-			                           </sec:authorize> </td>
-			                            <td><sec:authorize access="hasAuthority('admin')"><a  href="${pageContext.request.contextPath}/updatelocation?locid=${location.locid}">Update</a>
-                            			</sec:authorize></td>
+			                            <td><a onclick="if(!(confirm('Are u sure u want to delete? '))) return false" href="${pageContext.request.contextPath}/deletelocation?locid=${location.locid}">Delete</a>
+			                            </td>
+			                            <td><a  href="${pageContext.request.contextPath}/updatelocation?locid=${location.locid}">Update</a>
+                            			</td>
 			                        </tr>
 			                    </c:forEach>
 			                </tbody>
@@ -252,29 +318,32 @@
                 </div>
 
                 <form id="formica" action="${pageContext.request.contextPath}/docreatelocation" method="post" onsubmit="return validateForma();">
-
                     <div class="form-group row">
                         <label for="inputLocName" class="col-sm-5 col-form-label">Name: </label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputLocName" name="locname" placeholder="Location name">
+                            <input type="text" class="form-control" id="inputLocName" name="locname" placeholder="Location name" onblur="check_locname();">
+                       		<div class="error" id="error"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputCountry" class="col-sm-5 col-form-label">Country: </label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputCountry" name="loccountry" placeholder="Country">
+                            <input type="text" class="form-control" id="inputCountry" name="loccountry" placeholder="Country" onblur="check_country();">
+                        	<div class="error" id="error1"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputDailyAllowance" class="col-sm-5 col-form-label">Daily allowance: </label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputDailyAllowance" name="locdailyallowance" placeholder="Daily allowance">
+                            <input type="text" class="form-control" id="inputDailyAllowance" name="locdailyallowance" placeholder="Daily allowance" onblur="check_allowance();">
+                        	<div class="error" id="error2"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputLocDistance" class="col-sm-5 col-form-label">Location distance: </label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputLocDistance" name="locdistance" placeholder="Location distance">
+                            <input type="text" class="form-control" id="inputLocDistance" name="locdistance" placeholder="Location distance" onblur="check_distance();">
+                        	<div class="error" id="error3"></div>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -285,47 +354,13 @@
                         </div>
                     </div>        
                 </form>
-                
-                <form id="formica1" action="${pageContext.request.contextPath}/doupdatelocation" method="post" onsubmit="return validateForma();">
-					<input name="locid" type="hidden"  value="${location.locid}" />
-                    <div class="form-group row">
-                        <label for="inputLocName" class="col-sm-5 col-form-label">Name: </label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputLocName" name="locname" value="${location.locname}">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inputCountry" class="col-sm-5 col-form-label">Country: </label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputCountry" name="loccountry" value="${location.loccountry}">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inputDailyAllowance" class="col-sm-5 col-form-label">Daily allowance: </label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputDailyAllowance" name="locdailyallowance" value="${location.locdailyallowance}">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inputLocDistance" class="col-sm-5 col-form-label">Location distance: </label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputLocDistance" name="locdistance" value="${location.locdistance}">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-12">
-                            <br/>
-                            <button class="btn btn-success" type="submit" id="submit">Update</button>
-                            <input type="button" class="btn btn-danger" onclick="window.location.reload();" value="Cancel" />
-                        </div>
-                    </div>        
-                </form>
+
             </div>
-            <!-- <footer id="foot">
+            <footer id="foot">
                 <p>
-                    Engineering Software Lab® Copyright©2018
+                    Engineering Software LabÂ® CopyrightÂ©2018
                 </p>
-            </footer> -->
+            </footer>
         </div>
     </body>
 </html>

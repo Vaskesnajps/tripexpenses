@@ -59,6 +59,7 @@ public class BillController {
 		
 		List<Businesstrip> businesstrips = employee1.getBusinesstrips();
 		System.out.println(businesstrips);
+		
 		model.addAttribute("businesstrips", businesstrips);
 		return "bills";
 	}

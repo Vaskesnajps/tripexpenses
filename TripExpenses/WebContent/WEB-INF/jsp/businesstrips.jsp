@@ -1,7 +1,7 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -14,7 +14,11 @@
                 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/assets/money_euro.png" />
                 <!-- Bootstrap CSS -->
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-
+					<script src="${pageContext.request.contextPath}/static/alertify.js-0.3.11/lib/alertify.min.js"></script>
+                    <!-- include the core styles -->
+                    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/alertify.js-0.3.11/themes/alertify.core.css" />
+                    <!-- include a theme, can be included into the core instead of 2 separate files -->
+                    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/alertify.js-0.3.11/themes/alertify.default.css" />
                     <!-- Optional JavaScript -->
                     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
                     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -30,12 +34,10 @@
     
                             <script>
                                 $(document).ready(function() {
-
                                 $("#Add").click(function(event) {
                                 $(".col-xl-12").hide();
                                 $("#formica").show();
                                 }   );
-
                                 $('#example').DataTable({
                                 "pageLength": 5
                                 });
@@ -107,7 +109,6 @@
                                 border-radius: 50px;
                                 border: 1px solid #d8d8d8c5;
                                 }
-
                                 #divic{
                                 background-image: linear-gradient(to bottom, rgba(170, 170, 170, 1),rgba(170, 170, 170, 0.5),rgba(99,123,131,0.3));
                                 margin-top: 2%;
@@ -117,7 +118,6 @@
                                 border-radius: 30px;
                                 display: none;
                                 }
-
                                 .row{
                                 
                                 }
@@ -148,9 +148,57 @@
                                 #lg { 
                                  	font-size: 0.75em;
                                  }
+                                 .error {
+                                 color: red;
+                                 }
                             </style>
-                            <script>
-
+                            <script lang="JavaScript">
+                            function validateForma() {
+                                if (document.getElementById('inputDateFrom').value == "") {
+                                    alertify.alert("All fields must be filled!");
+                                    document.getElementById('inputDateFrom').focus();
+                                    return false;
+                                } else if (document.getElementById('inputDateTo').value == "") {
+                                    alertify.alert("All fields must be filled!");
+                                    document.getElementById('inputDateTo').focus();
+                                    return false;
+                                } else if (check_datefrom() && check_dateto() && check_dates()) {
+                                    return true;
+                                } else {
+                                    return false;
+                                }  
+                            }
+                            function check_datefrom() {
+                                var regExLocName =  /^(0[1-9]|[12][0-9]|3[01])\-(0[1-9]|1[012])\-(20[0-9]\d|20[0-4]\d|2050)$/;
+                                if(!regExLocName.test(document.getElementById('inputDateFrom').value)) {
+                                    error.innerHTML = "Invalid date format!";
+                                    return false;
+                                } else {
+                                    document.getElementById('error').innerHTML = "";
+                                    return true;
+                                };
+                            }
+                            function check_dateto() {
+                                var regExLocName =  /^(0[1-9]|[12][0-9]|3[01])\-(0[1-9]|1[012])\-(20[0-9]\d|20[0-4]\d|2050)$/;
+                                if(!regExLocName.test(document.getElementById('inputDateFrom').value)) {
+                                    error1.innerHTML = "Invalid date format!";
+                                    return false;
+                                } else {
+                                    document.getElementById('error1').innerHTML = "";
+                                    return true;
+                                };
+                            }
+                            function check_dates() {
+                            	var x = document.getElementById('inputDateFrom').value;
+                            	var y = document.getElementById('inputDateTo').value;
+                            	if(x > y) {
+                            		error1.innerHTML = "Trip ending date should be after starting date!";
+                                    return false;
+                                } else {
+                                    document.getElementById('error1').innerHTML = "";
+                                    return true;
+                            	};
+                            }
                             </script>
     </head>
     <body>
@@ -212,7 +260,7 @@
     					<h4 style="color:green; text-align: center;">${message}</h4>
     					
                         <button type="button" id="Add" class="btn btn-light" >Add New Business Trip</button>
-                       
+                        
                         <div class="table-responsive">
                         <table id="example" class="table table-striped table-bordered" style=" height: 10%; background-color: white;">
                             <thead>
@@ -221,7 +269,7 @@
 			                        <th>From Date:</th>  
 			                        <th>To Date:</th>  
 			                        <th>Days count:</th> 
-			                          <th>Total allowance:</th> 
+			                         <th>Total allowance:</th> 
 			                        <th>Employee:</th>
 			                        <th>Location:</th>  
 			                        <th>Action:</th>  
@@ -239,7 +287,6 @@
 			                            <td>${businesstrip.location}</td>  
 			                            <td><sec:authorize access="hasAuthority('admin')">
 											<a onclick="if(!(confirm('Are u sure u want to delete? '))) return false" href="${pageContext.request.contextPath}/deletebusinesstrip?bustripid=${businesstrip.bustripid}">Delete</a>
-			                      
 											</sec:authorize>
 			                            </td>                      
 			                        </tr>
@@ -248,19 +295,19 @@
                         </table>
                    </div>
                 </div>
-
                 <form id="formica" action="${pageContext.request.contextPath}/docreatebusinesstrip" method="post" onsubmit="return validateForma();">
-
                     <div class="form-group row">
                         <label for="inputDateFrom" class="col-sm-5 col-form-label">Date From: </label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputDateFrom" name="fromdate" placeholder="Start Date">
+                            <input type="text" class="form-control" id="inputDateFrom" name="fromdate" placeholder="DD-MM-YYYY" onblur="check_datefrom();">
+                        	<div class="error" id="error"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputDateTo" class="col-sm-5 col-form-label">Date To: </label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputDateTo" name="todate" placeholder="End Date">
+                            <input type="text" class="form-control" id="inputDateTo" name="todate" placeholder="DD-MM-YYYY" onblur="check_dateto();">
+                        	<div class="error" id="error1"></div>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -282,11 +329,11 @@
                     </div>        
                 </form>
             </div>
-            <!-- <footer id="foot">
+            <footer id="foot">
                 <p>
-                    Engineering Software Lab® Copyright©2018
+                    Engineering Software LabÂ® CopyrightÂ©2018
                 </p>
-            </footer> -->
+            </footer>
         </div>
     </body>
 </html>

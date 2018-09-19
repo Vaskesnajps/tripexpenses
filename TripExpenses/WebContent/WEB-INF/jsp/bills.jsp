@@ -1,7 +1,7 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -14,10 +14,11 @@
                 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/assets/money_euro.png" />
                 <!-- Bootstrap CSS -->
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-				<script  src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-				<script  src="https://momentjs.com/downloads/moment.js"></script>
-<script  src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css">
+					<script src="${pageContext.request.contextPath}/static/alertify.js-0.3.11/lib/alertify.min.js"></script>
+                    <!-- include the core styles -->
+                    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/alertify.js-0.3.11/themes/alertify.core.css" />
+                    <!-- include a theme, can be included into the core instead of 2 separate files -->
+                    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/alertify.js-0.3.11/themes/alertify.default.css" />
                     <!-- Optional JavaScript -->
                     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
                     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -32,18 +33,11 @@
                         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     
                             <script>
-                            $(function () {
-                                
-                                $("#inputBillDate").datepicker({dateFormat: 'dd-mm-yy'} );
-                               
-                            });
                                 $(document).ready(function() {
-
                                 $("#Add").click(function(event) {
                                 $(".col-xl-12").hide();
                                 $("#formica").show();
                                 }   );
-
                                 $('#example').DataTable({
                                 "pageLength": 5
                                 });
@@ -115,7 +109,6 @@
                                 border-radius: 50px;
                                 border: 1px solid #d8d8d8c5;
                                 }
-
                                 #divic{
                                 background-image: linear-gradient(to bottom, rgba(170, 170, 170, 1),rgba(170, 170, 170, 0.5),rgba(99,123,131,0.3));
                                 margin-top: 2%;
@@ -125,7 +118,6 @@
                                 border-radius: 30px;
                                 display: none;
                                 }
-
                                 .row{
                                 
                                 }
@@ -137,7 +129,7 @@
         
                                 #formica{
                                 display: none;
-                                background-image: linear-gradient(to bottom, rgba(81, 81, 81, 1),rgba(81, 81, 81, 1),rgba(99,123,131,0.3));
+                                background-image: linear-gradient(to bottom, rgba(170, 170, 170, 1),rgba(81, 81, 81, 1),rgba(99,123,131,0.3));
                                 border-radius: 30px;
                                 width: 70%;
                                 z-index: 20;
@@ -156,9 +148,60 @@
                                 #lg { 
                                  	font-size: 0.75em;
                                  }
+                                 .error {
+                                 color: red;
+                                 }
                             </style>
-                            <script>
-
+                            <script lang="JavaScript">
+                            function validateForma() {
+                                if (document.getElementById('inputBillDate').value == "") {
+                                    alertify.alert("All fields must be filled!");
+                                    document.getElementById('inputBillDate').focus();
+                                    return false;
+                                } else if (document.getElementById('inputItem').value == "") {
+                                    alertify.alert("All fields must be filled!");
+                                    document.getElementById('inputItem').focus();
+                                    return false;
+                                } else if (document.getElementById('inputPrice').value == "") {
+                                    alertify.alert("All fields must be filled!");
+                                    document.getElementById('inputPrice').focus();
+                                    return false;
+                                } else if (check_date() && check_item() && check_price()) {
+                                    return true;
+                                } else {
+                                    return false;
+                                }  
+                            }
+                            function check_date() {
+                                var regExLocName =  /^(0[1-9]|[12][0-9]|3[01])\-(0[1-9]|1[012])\-(20[0-9]\d|20[0-4]\d|2050)$/;
+                                if(!regExLocName.test(document.getElementById('inputBillDate').value)) {
+                                    error.innerHTML = "Invalid date format! Date must be from 2000. year!";
+                                    return false;
+                                } else {
+                                    document.getElementById('error').innerHTML = "";
+                                    return true;
+                                };
+                            }
+                            function check_item() {
+                                var regExLocName =  /^[A-Z][a-z]+(\s[A-Z][a-z]+)*$/;
+                                if(!regExLocName.test(document.getElementById('inputItem').value)) {
+                                    error1.innerHTML = "Item should only contain letters!";
+                                    return false;
+                                } else {
+                                    document.getElementById('error1').innerHTML = "";
+                                    return true;
+                                };
+                            }
+                            function check_price() {
+                                var regExLocName = /^[0-9]{1,4}$/;
+                                if(!regExLocName.test(document.getElementById('inputPrice').value)) {
+                                    error2.innerHTML = "Price should only contain numbers!";
+                                    return false;
+                                } else {
+                                    document.getElementById('error2').innerHTML = "";
+                                    return true;
+                                };
+                            }
                             </script>
     </head>
     <body>
@@ -222,7 +265,7 @@
     					<h4 style="color:green; text-align: center;">${message}</h4>
     					
                         <button type="button" id="Add" class="btn btn-light" >Add New Bill</button>
-                       
+                        
                         <div class="table-responsive">
                         <table id="example" class="table table-striped table-bordered" style=" height: 10%; background-color: white;">
                             <thead>
@@ -244,9 +287,9 @@
 			                            <td>${bill.billdate}</td>  
 			                            <td>${bill.businesstrip}</td>  
 			                            
-			                            <td>
+			                            <td><sec:authorize access="hasAuthority('admin')">
 										<a onclick="if(!(confirm('Are u sure u want to delete? '))) return false" href="${pageContext.request.contextPath}/deletebill?billid=${bill.billid}">Delete</a>                      
-											
+											</sec:authorize>
 			                            </td>
 			                        </tr>
 			                    </c:forEach>
@@ -270,19 +313,22 @@
                     <div class="form-group row">
                         <label for="inputBillDate" class="col-sm-5 col-form-label">Bill Date: </label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputBillDate" name="billdate" placeholder="dd-mm-yyyy" data-provide="datepicker">
+                            <input type="text" class="form-control" id="inputBillDate" name="billdate" placeholder="DD-MM-YYYY" onblur="check_date();">
+                        	<div class="error" id="error"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputItem" class="col-sm-5 col-form-label">Item: </label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputItem" name="billitem" placeholder="Item Name">
+                            <input type="text" class="form-control" id="inputItem" name="billitem" placeholder="Item Name" onblur="check_item();">
+                        	<div class="error" id="error1"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputPrice" class="col-sm-5 col-form-label">Price: </label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="inputPrice" name="price" placeholder="Price">
+                            <input type="text" class="form-control" id="inputPrice" name="price" placeholder="Price" onblur="check_price();">
+                        	<div class="error" id="error2"></div>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -294,11 +340,11 @@
                     </div>        
                 </form>
             </div>
-            <!-- <footer id="foot">
+            <footer id="foot">
                 <p>
-                    Engineering Software Lab® Copyright©2018
+                    Engineering Software LabÂ® CopyrightÂ©2018
                 </p>
-            </footer> -->
+            </footer>
         </div>
     </body>
 </html>
